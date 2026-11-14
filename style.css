@@ -954,3 +954,49 @@ img[src*="photo5"] {
 
 
 
+
+
+
+
+
+
+
+
+
+
+.gate-countdown {
+  margin: 20px 0 30px;
+}
+
+.gate-countdown p {
+  color: #e4a6d9;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.gate-timer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.gate-timer div {
+  background: rgba(183, 93, 195, .15);
+  border: 1px solid rgba(230, 155, 230, .3);
+  border-radius: 12px;
+  padding: 12px 3px;
+}
+
+.gate-timer strong {
+  display: block;
+  color: #fff;
+  font-size: 24px;
+}
+
+.gate-timer span {
+  color: #dca9db;
+  font-size: 10px;
+}
+
+
