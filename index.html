@@ -277,78 +277,48 @@
 
   
 
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+(function () {
+  const gate = document.getElementById("passwordGate");
+  const form = document.getElementById("passwordForm");
+  const input = document.getElementById("sitePassword");
+  const error = document.getElementById("passwordError");
+  const showButton = document.getElementById("showPassword");
 
   const correctPassword = "YouAreMein";
 
-  const gate = document.getElementById("passwordGate");
-  const input = document.getElementById("sitePassword");
-  const button = document.getElementById("unlockButton");
-  const error = document.getElementById("passwordError");
-  const show = document.getElementById("showPassword");
+  // Every refresh: return to the login screen
+  history.replaceState(null, "", location.pathname + location.search);
+  window.scrollTo(0, 0);
 
-  if (!gate || !input || !button || !error || !show) {
-    alert("Password elements missing. Check HTML IDs.");
-    return;
+  if (gate) {
+    gate.style.display = "flex";
   }
 
-  if (sessionStorage.getItem("birthdayUnlocked") === "yes") {
-    gate.style.display = "none";
-  }
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-  button.addEventListener("click", function () {
-
-    if (input.value.trim() === correctPassword) {
-
-      sessionStorage.setItem("birthdayUnlocked", "yes");
-      error.textContent = "";
-      gate.style.display = "none";
-
-      if (typeof startBackgroundMusic === "function") {
-        startBackgroundMusic();
+      if (input.value === correctPassword) {
+        error.textContent = "";
+        gate.style.display = "none";
+      } else {
+        error.textContent = "Wrong password! Try again ❤️";
+        input.value = "";
+        input.focus();
       }
-
-    } else {
-      error.textContent = "Incorrect password! Try again ♡";
-      input.value = "";
-      input.focus();
-    }
-
-  });
-
-  show.addEventListener("click", function () {
-    if (input.type === "password") {
-      input.type = "text";
-      show.textContent = "Hide";
-    } else {
-      input.type = "password";
-      show.textContent = "Show";
-    }
-  });
-
-  function updateGateCountdown() {
-    const target = new Date(2026, 11, 31).getTime();
-    const diff = Math.max(0, target - Date.now());
-
-    const values = [
-      Math.floor(diff / 86400000),
-      Math.floor(diff % 86400000 / 3600000),
-      Math.floor(diff % 3600000 / 60000),
-      Math.floor(diff % 60000 / 1000)
-    ];
-
-    ["gateDays", "gateHours", "gateMinutes", "gateSeconds"]
-      .forEach((id, i) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = String(values[i]).padStart(2, "0");
-      });
+    });
   }
 
-  updateGateCountdown();
-  setInterval(updateGateCountdown, 1000);
-
-});
+  if (showButton && input) {
+    showButton.addEventListener("click", function () {
+      input.type = input.type === "password" ? "text" : "password";
+      showButton.textContent =
+        input.type === "password" ? "Show" : "Hide";
+    });
+  }
+})();
 </script>
 </body>
 </html>
