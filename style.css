@@ -1070,3 +1070,39 @@ img[src*="photo5"] {
   color: #ff8192;
   min-height: 20px;
 }
+
+
+
+
+
+.gate-countdown {
+  text-align: center;
+  margin: 20px 0;
+  color: white;
+}
+
+.countdown-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.countdown-boxes div {
+  background: #351018;
+  border: 1px solid #ff536d;
+  border-radius: 12px;
+  padding: 12px 8px;
+  min-width: 65px;
+}
+
+.countdown-boxes span {
+  display: block;
+  color: #ff536d;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.countdown-boxes small {
+  color: white;
+  font-size: 11px;
+}
