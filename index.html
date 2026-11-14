@@ -271,6 +271,7 @@
 
 <script src="script.js"></script>
 
+
 <script>
 // PASSWORD SETTINGS
 const correctPassword = "YouAreMein";
@@ -281,34 +282,30 @@ const passwordGate = document.getElementById("passwordGate");
 const passwordError = document.getElementById("passwordError");
 const showPassword = document.getElementById("showPassword");
 
-// Check whether this browser session is already unlocked
+// Already unlocked in this browser session
 if (sessionStorage.getItem("birthdayUnlocked") === "yes") {
-  passwordGate.classList.add("unlocked");
+  passwordGate.style.display = "none";
 }
 
 passwordForm.addEventListener("submit", function(event) {
   event.preventDefault();
 
-  
-if (passwordInput.value === correctPassword) {
-    sessionStorage.setItem("birthdayUnlocked", "yes");
+  if (passwordInput.value === correctPassword) {
 
+    sessionStorage.setItem("birthdayUnlocked", "yes");
     passwordError.textContent = "";
+
+    // Unlock main website
     passwordGate.classList.add("unlocked");
 
-    startBackgroundMusic(); // MUSIC STARTS HERE
+    // Start background music
+    if (typeof startBackgroundMusic === "function") {
+      startBackgroundMusic();
+    }
 
-    setTimeout(() => {
-        passwordGate.style.display = "none";
+    setTimeout(function() {
+      passwordGate.style.display = "none";
     }, 650);
-}
-
-} else {
-    passwordError.textContent = "Incorrect password! Try again ♡";
-    passwordInput.value = "";
-    passwordInput.focus();
-}
-
 
   } else {
     passwordError.textContent = "Incorrect password! Try again ♡";
@@ -328,8 +325,7 @@ showPassword.addEventListener("click", function() {
   }
 });
 
-
-
+// PASSWORD PAGE COUNTDOWN
 function updateGateCountdown() {
   const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
   const difference = target - Date.now();
@@ -342,32 +338,28 @@ function updateGateCountdown() {
   };
 
   if (difference > 0) {
-    values.gateDays = String(
-      Math.floor(difference / 86400000)
-    ).padStart(2, "0");
-
-    values.gateHours = String(
-      Math.floor((difference % 86400000) / 3600000)
-    ).padStart(2, "0");
-
-    values.gateMinutes = String(
-      Math.floor((difference % 3600000) / 60000)
-    ).padStart(2, "0");
-
-    values.gateSeconds = String(
-      Math.floor((difference % 60000) / 1000)
-    ).padStart(2, "0");
+    values.gateDays = String(Math.floor(difference / 86400000)).padStart(2, "0");
+    values.gateHours = String(Math.floor((difference % 86400000) / 3600000)).padStart(2, "0");
+    values.gateMinutes = String(Math.floor((difference % 3600000) / 60000)).padStart(2, "0");
+    values.gateSeconds = String(Math.floor((difference % 60000) / 1000)).padStart(2, "0");
   }
 
-  Object.entries(values).forEach(([id, value]) => {
-    document.getElementById(id).textContent = value;
+  Object.entries(values).forEach(function([id, value]) {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
   });
 }
 
 updateGateCountdown();
 setInterval(updateGateCountdown, 1000);
+</script>
 
+<script src="script.js"></script>
 
+<!-- Password settings code goes here -->
+<script>
+  // Password code
+  // Gate countdown code
 </script>
 
 </body>
