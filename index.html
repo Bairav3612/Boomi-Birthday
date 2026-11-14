@@ -334,6 +334,21 @@ showPassword.addEventListener("click", function() {
 
 if (sessionStorage.getItem("birthdayUnlocked") === "yes") {
     passwordGate.style.display = "none";
+
+// Open main website from the top
+history.replaceState(null, "", window.location.pathname);
+window.scrollTo(0, 0);
+
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+
+setTimeout(function () {
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant"
+    });
+}, 100);
 }
 
 function updateGateCountdown() {
