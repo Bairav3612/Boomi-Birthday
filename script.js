@@ -241,12 +241,7 @@ function makePetal() {
 }
 setInterval(makePetal, 850);
 
-// Background music: browsers require a visitor click before playback.
-const musicButton = document.getElementById("musicToggle");
-const music = new Audio("assets/audio/birthday-music.mp3");
 
-music.loop = true;
-music.volume = 0.30;
 
 // Password correct aana udane music play aagum
 async function startBackgroundMusic() {
