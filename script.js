@@ -247,11 +247,12 @@ setInterval(makePetal, 850);
 
 // BACKGROUND MUSIC
 const musicButton = document.getElementById("musicToggle");
-const music = new Audio("assets/audio/birthday-music.mp3");
+const music = document.getElementById("bgMusic");
 
 music.loop = true;
 music.volume = 0.30;
 
+// Start music after correct password
 async function startBackgroundMusic() {
     try {
         await music.play();
@@ -278,9 +279,21 @@ if (musicButton) {
     });
 }
 
-// Pause background music when voice message plays
+// Pause music when voice message plays
 const voiceAudio = document.getElementById("voiceAudio");
 
+if (voiceAudio) {
+    voiceAudio.addEventListener("play", () => {
+        if (!music.paused) {
+            music.pause();
+
+            if (musicButton) {
+                musicButton.textContent = "♫ Music: off";
+                musicButton.setAttribute("aria-pressed", "false");
+            }
+        }
+    });
+}
 if (voiceAudio) {
     voiceAudio.addEventListener("play", () => {
         if (!music.paused) {
