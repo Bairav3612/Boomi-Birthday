@@ -300,3 +300,27 @@ closeBtn.addEventListener("click", function () {
     surprise.style.display = "none";
 
 });
+
+
+
+const correctPassword = "Boomi3112@";
+
+function unlockWebsite() {
+  const enteredPassword =
+    document.getElementById("sitePassword").value;
+
+  if (enteredPassword === correctPassword) {
+    document.getElementById("passwordScreen").style.display = "none";
+  } else {
+    document.getElementById("passwordError").textContent =
+      "Wrong password! Try again, my dear ❤️";
+  }
+}
+
+// Allow Enter key
+document.getElementById("sitePassword")
+  .addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      unlockWebsite();
+    }
+  });
