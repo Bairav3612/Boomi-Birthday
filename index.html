@@ -9,6 +9,33 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+
+<div id="boomiPasswordScreen">
+  <div class="boomi-password-card">
+    <div style="font-size:50px">🌹</div>
+    <h1>A Little Secret</h1>
+    <p>Only someone special can enter ❤️</p>
+
+    <div class="boomi-input-wrap">
+      <input
+        type="password"
+        id="boomiPasswordInput"
+        placeholder="Enter your password"
+      >
+      <span id="boomiEye"
+        onclick="boomiTogglePassword()">👁️</span>
+    </div>
+
+    <button type="button" id="boomiUnlockButton">
+      Unlock My Surprise ♡
+    </button>
+
+    <p id="boomiPasswordError"></p>
+    <small>Made with love by Bairav ♡</small>
+  </div>
+</div>
+
   <div class="stars" aria-hidden="true"></div>
   <div class="petal-layer" aria-hidden="true"></div>
   <header class="topbar">
@@ -211,45 +238,5 @@
     pointer-events: none;
   }
 </style>
-
-
-<!-- PASSWORD LOCK SCREEN -->
-<div id="passwordScreen">
-  <div class="password-card">
-    <div class="rose">🌹</div>
-    <h1>A Little Secret</h1>
-    <p>This little universe is only for you, Boomika ❤️</p>
-
-    <input
-      type="password"
-      id="sitePassword"
-      placeholder="Enter your secret password"
-    >
-
-    <button onclick="unlockWebsite()">
-      Unlock My Surprise ♡
-    </button>
-
-    <p id="passwordError"></p>
-    <small>Made with love by Bairav</small>
-  </div>
-</div>
-
-
-
-
-<div class="password-input-box">
-  <input
-    type="password"
-    id="sitePassword"
-    placeholder="Enter your secret password"
-  >
-
-  <span id="togglePassword" onclick="togglePassword()">👁️</span>
-</div>
-
-<p id="passwordError"></p>
-
-
 </body>
 </html>
