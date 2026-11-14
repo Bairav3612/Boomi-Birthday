@@ -812,3 +812,79 @@ img[src*="photo5"] {
         print-color-adjust: exact;
     }
 }
+
+
+
+
+
+
+/* PASSWORD SCREEN */
+#passwordScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #16091f, #4b173c, #170b29);
+  padding: 20px;
+}
+
+.password-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 40px 25px;
+  text-align: center;
+  border: 1px solid #d99ab7;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.09);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 35px rgba(255,105,180,0.2);
+}
+
+.password-card .rose {
+  font-size: 55px;
+}
+
+.password-card h1 {
+  color: #ffc5df;
+  font-family: Georgia, serif;
+}
+
+.password-card p {
+  color: #ffe3ef;
+  line-height: 1.7;
+}
+
+.password-card input {
+  width: 100%;
+  padding: 14px;
+  margin: 18px 0;
+  border: 1px solid #e8a5c5;
+  border-radius: 12px;
+  background: #24152f;
+  color: white;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.password-card button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #e77cae, #a94e91);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#passwordError {
+  color: #ff9aab;
+  font-size: 14px;
+}
+
+.password-card small {
+  color: #eabbd0;
+}
