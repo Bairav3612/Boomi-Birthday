@@ -11,29 +11,25 @@
 <body>
 
 
-<div id="boomiPasswordScreen">
-  <div class="boomi-password-card">
-    <div style="font-size:50px">🌹</div>
-    <h1>A Little Secret</h1>
-    <p>Only someone special can enter ❤️</p>
+<div class="password-box">
+  <h2>🔐 A Special Surprise</h2>
+  <p>Enter the secret password to continue ❤️</p>
 
-    <div class="boomi-input-wrap">
-      <input
-        type="password"
-        id="boomiPasswordInput"
-        placeholder="Enter your password"
-      >
-      <span id="boomiEye"
-        onclick="boomiTogglePassword()">👁️</span>
-    </div>
+  <div class="password-input">
+    <input
+      type="password"
+      id="passwordInput"
+      placeholder="Enter password"
+    >
 
-    <button type="button" id="boomiUnlockButton">
-      Unlock My Surprise ♡
+    <button type="button" onclick="togglePassword()">
+      👁️
     </button>
-
-    <p id="boomiPasswordError"></p>
-    <small>Made with love by Bairav ♡</small>
   </div>
+
+  <button onclick="checkPassword()">Unlock ❤️</button>
+
+  <p id="errorMessage"></p>
 </div>
 
   <div class="stars" aria-hidden="true"></div>
