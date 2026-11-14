@@ -244,22 +244,35 @@ setInterval(makePetal, 850);
 // Background music: browsers require a visitor click before playback.
 const musicButton = document.getElementById("musicToggle");
 const music = new Audio("assets/audio/birthday-music.mp3");
+
 music.loop = true;
 music.volume = 0.30;
-musicButton.addEventListener("click", async () => {
-  if (music.paused) {
+
+// Password correct aana udane music play aagum
+async function startBackgroundMusic() {
     try {
-      await music.play();
-      musicButton.textContent = "♫ Music: on";
-      musicButton.setAttribute("aria-pressed", "true");
+        await music.play();
+
+        musicButton.textContent = "♫ Music: on";
+        musicButton.setAttribute("aria-pressed", "true");
+
     } catch (error) {
-      musicButton.textContent = "♫ Add background.mp3";
+        console.log("Music playback failed:", error);
     }
-  } else {
-    music.pause();
-    musicButton.textContent = "♫ Music: off";
-    musicButton.setAttribute("aria-pressed", "false");
-  }
+}
+
+// Manual music button
+musicButton.addEventListener("click", async () => {
+
+    if (music.paused) {
+        await startBackgroundMusic();
+    } else {
+        music.pause();
+
+        musicButton.textContent = "♫ Music: off";
+        musicButton.setAttribute("aria-pressed", "false");
+    }
+
 });
 
 // Personal voice message. Pause background music while the voice note plays.
