@@ -264,7 +264,54 @@
   }
 </style>
 
+<script src="script.js"></script>
+
 <script>
-  
+// PASSWORD SETTINGS
+const correctPassword = "Boomika3112";
+
+const passwordForm = document.getElementById("passwordForm");
+const passwordInput = document.getElementById("sitePassword");
+const passwordGate = document.getElementById("passwordGate");
+const passwordError = document.getElementById("passwordError");
+const showPassword = document.getElementById("showPassword");
+
+// Check whether this browser session is already unlocked
+if (sessionStorage.getItem("birthdayUnlocked") === "yes") {
+  passwordGate.classList.add("unlocked");
+}
+
+passwordForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  if (passwordInput.value === correctPassword) {
+    sessionStorage.setItem("birthdayUnlocked", "yes");
+
+    passwordError.textContent = "";
+    passwordGate.classList.add("unlocked");
+
+    setTimeout(() => {
+      passwordGate.style.display = "none";
+    }, 650);
+
+  } else {
+    passwordError.textContent = "Incorrect password! Try again ♡";
+    passwordInput.value = "";
+    passwordInput.focus();
+  }
+});
+
+// Show / hide password
+showPassword.addEventListener("click", function() {
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    this.textContent = "Hide";
+  } else {
+    passwordInput.type = "password";
+    this.textContent = "Show";
+  }
+});
+</script>
+
 </body>
 </html>
