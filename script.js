@@ -223,8 +223,26 @@ function updateCountdown() {
   document.getElementById("minutes").textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
   document.getElementById("seconds").textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
 }
-updateCountdown();
-setInterval(updateCountdown, 1000);
+
+function updateGateCountdown() {
+    const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
+    const now = Date.now();
+    const diff = target - now;
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById("gateDays").textContent = Math.max(0, days);
+    document.getElementById("gateHours").textContent = Math.max(0, hours);
+    document.getElementById("gateMinutes").textContent = Math.max(0, minutes);
+    document.getElementById("gateSeconds").textContent = Math.max(0, seconds);
+}
+
+updateGateCountdown();
+setInterval(updateGateCountdown, 1000);
+
 
 // Floating petals.
 const petalLayer = document.querySelector(".petal-layer");
