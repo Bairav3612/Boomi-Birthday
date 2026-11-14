@@ -243,9 +243,7 @@ function updateCountdown() {
 
 // Start immediately and update every second
 updateCountdown();
-// Start the main birthday countdown
-updateCountdown();
-setInterval(updateCountdown, 1000);
+
 
 function updateGateCountdown() {
     const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
