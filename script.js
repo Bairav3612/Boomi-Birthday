@@ -324,3 +324,32 @@ document.getElementById("sitePassword")
       unlockWebsite();
     }
   });
+
+
+
+function togglePassword() {
+  const password = document.getElementById("sitePassword");
+  const icon = document.getElementById("togglePassword");
+
+  if (password.type === "password") {
+    password.type = "text";
+    icon.textContent = "🙈";
+  } else {
+    password.type = "password";
+    icon.textContent = "👁️";
+  }
+}
+
+function unlockWebsite() {
+  const enteredPassword =
+    document.getElementById("sitePassword").value;
+
+  const error = document.getElementById("passwordError");
+
+  if (enteredPassword === "Boomi123") {
+    document.getElementById("passwordScreen").style.display = "none";
+    error.textContent = "";
+  } else {
+    error.textContent = "❌ Wrong password! Try again ❤️";
+  }
+}
