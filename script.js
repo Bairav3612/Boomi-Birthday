@@ -316,3 +316,15 @@ closeBtn.addEventListener("click", function () {
 
 
 
+
+if (enteredPassword === correctPassword) {
+
+    document.getElementById("passwordScreen").style.display = "none";
+
+    document.getElementById("mainContent").style.display = "block";
+
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.5;
+    music.play();
+
+}
