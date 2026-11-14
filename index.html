@@ -278,38 +278,79 @@
   
 
 
+
 <script>
-(function () {
-  const gate = document.getElementById("passwordGate");
-  const main = document.getElementById("mainWebsite");
-  const form = document.getElementById("passwordForm");
-  const input = document.getElementById("sitePassword");
-  const error = document.getElementById("passwordError");
+document.addEventListener("DOMContentLoaded", function () {
 
   const correctPassword = "YouAreMein";
 
-  gate.style.display = "flex";
-  main.style.display = "none";
+  const gate = document.getElementById("passwordGate");
+  const input = document.getElementById("sitePassword");
+  const button = document.getElementById("unlockButton");
+  const error = document.getElementById("passwordError");
+  const show = document.getElementById("showPassword");
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
+  if (!gate || !input || !button || !error || !show) {
+    alert("Password elements missing. Check HTML IDs.");
+    return;
+  }
 
-    if (input.value === correctPassword) {
+  if (sessionStorage.getItem("birthdayUnlocked") === "yes") {
+    gate.style.display = "none";
+  }
+
+  button.addEventListener("click", function () {
+
+    if (input.value.trim() === correctPassword) {
+
+      sessionStorage.setItem("birthdayUnlocked", "yes");
       error.textContent = "";
       gate.style.display = "none";
-      main.style.display = "block";
+
+      if (typeof startBackgroundMusic === "function") {
+        startBackgroundMusic();
+      }
+
     } else {
-      error.textContent = "Wrong password! Try again ❤️";
+      error.textContent = "Incorrect password! Try again ♡";
       input.value = "";
+      input.focus();
+    }
+
+  });
+
+  show.addEventListener("click", function () {
+    if (input.type === "password") {
+      input.type = "text";
+      show.textContent = "Hide";
+    } else {
+      input.type = "password";
+      show.textContent = "Show";
     }
   });
-})();
+
+  function updateGateCountdown() {
+    const target = new Date(2026, 11, 31).getTime();
+    const diff = Math.max(0, target - Date.now());
+
+    const values = [
+      Math.floor(diff / 86400000),
+      Math.floor(diff % 86400000 / 3600000),
+      Math.floor(diff % 3600000 / 60000),
+      Math.floor(diff % 60000 / 1000)
+    ];
+
+    ["gateDays", "gateHours", "gateMinutes", "gateSeconds"]
+      .forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = String(values[i]).padStart(2, "0");
+      });
+  }
+
+  updateGateCountdown();
+  setInterval(updateGateCountdown, 1000);
+
+});
 </script>
-
-<div id="mainWebsite" style="display: none;">
-
-  <!-- YOUR COMPLETE MAIN WEBSITE HTML HERE -->
-
-</div>
 </body>
 </html>
