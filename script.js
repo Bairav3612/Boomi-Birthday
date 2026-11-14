@@ -243,25 +243,9 @@ function updateCountdown() {
 
 // Start immediately and update every second
 updateCountdown();
-setInterval(updateCountdown, 1000);
- {
-  const diff = birthday - Date.now();
-  const msg = document.getElementById("countdownMessage");
-  if (diff <= 0) {
-    ["days", "hours", "minutes", "seconds"].forEach(id => {
-      document.getElementById(id).textContent = "00";
-    });
-    msg.textContent = "It's your birthday, Boomika! Happy Birthday! ♡";
-    return;
 // Start the main birthday countdown
 updateCountdown();
 setInterval(updateCountdown, 1000);
-  }
-  document.getElementById("days").textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
-  document.getElementById("hours").textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0");
-  document.getElementById("minutes").textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
-  document.getElementById("seconds").textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
-}
 
 function updateGateCountdown() {
     const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
