@@ -206,9 +206,45 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// Countdown to 31 December 2026 at midnight in the visitor's local timezone.
-const birthday = new Date(2026, 11, 31, 0, 0, 0).getTime();
+// MAIN PAGE COUNTDOWN - 31 DECEMBER 2026
+
 function updateCountdown() {
+    const birthday = new Date(2026, 11, 31, 0, 0, 0).getTime();
+    const now = Date.now();
+    const diff = birthday - now;
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const msg = document.getElementById("countdownMessage");
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+        return;
+    }
+
+    if (diff <= 0) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minutesEl.textContent = "00";
+        secondsEl.textContent = "00";
+
+        if (msg) {
+            msg.textContent = "It's your birthday, Boomika! Happy Birthday! ♡";
+        }
+        return;
+    }
+
+    daysEl.textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
+    hoursEl.textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0");
+    minutesEl.textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+    secondsEl.textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+}
+
+// Start immediately and update every second
+updateCountdown();
+setInterval(updateCountdown, 1000);
+ {
   const diff = birthday - Date.now();
   const msg = document.getElementById("countdownMessage");
   if (diff <= 0) {
