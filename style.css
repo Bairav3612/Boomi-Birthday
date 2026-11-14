@@ -818,101 +818,74 @@ img[src*="photo5"] {
 
 
 
-/* PASSWORD SCREEN */
-#passwordScreen {
+#boomiPasswordScreen {
   position: fixed;
   inset: 0;
-  z-index: 999999;
+  z-index: 9999999;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #16091f, #4b173c, #170b29);
+  align-items: center;
+  background: linear-gradient(135deg,#100719,#572044,#180b29);
   padding: 20px;
 }
 
-.password-card {
+.boomi-password-card {
   width: 100%;
-  max-width: 380px;
-  padding: 40px 25px;
+  max-width: 360px;
+  padding: 35px 25px;
   text-align: center;
-  border: 1px solid #d99ab7;
+  border: 1px solid #e7a5c7;
   border-radius: 25px;
-  background: rgba(255,255,255,0.09);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 0 35px rgba(255,105,180,0.2);
-}
-
-.password-card .rose {
-  font-size: 55px;
-}
-
-.password-card h1 {
-  color: #ffc5df;
-  font-family: Georgia, serif;
-}
-
-.password-card p {
-  color: #ffe3ef;
-  line-height: 1.7;
-}
-
-.password-card input {
-  width: 100%;
-  padding: 14px;
-  margin: 18px 0;
-  border: 1px solid #e8a5c5;
-  border-radius: 12px;
-  background: #24152f;
-  color: white;
+  background: #25132f;
   box-sizing: border-box;
+}
+
+.boomi-password-card h1 {
+  color: #ffc4df;
+}
+
+.boomi-password-card p {
+  color: #ffe0ed;
+}
+
+.boomi-input-wrap {
+  position: relative;
+  margin: 20px 0;
+}
+
+.boomi-input-wrap input {
+  width: 100%;
+  padding: 15px 45px 15px 12px;
+  box-sizing: border-box;
+  border: 1px solid #d88ab4;
+  border-radius: 10px;
+  background: #160c20;
+  color: white;
   outline: none;
 }
 
-.password-card button {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #e77cae, #a94e91);
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#passwordError {
-  color: #ff9aab;
-  font-size: 14px;
-}
-
-.password-card small {
-  color: #eabbd0;
-}
-
-
-
-
-.password-input-box {
-  position: relative;
-  width: 100%;
-}
-
-.password-input-box input {
-  width: 100%;
-  padding: 14px 45px 14px 14px;
-  box-sizing: border-box;
-}
-
-#togglePassword {
+#boomiEye {
   position: absolute;
-  right: 15px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 20px;
 }
 
-#passwordError {
-  color: #ff6b91;
+#boomiUnlockButton {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg,#e77cae,#a94e91);
+  border: none;
+  border-radius: 10px;
+  color: white;
   font-weight: bold;
+  cursor: pointer;
+}
+
+#boomiPasswordError {
+  color: #ff829e;
+  font-size: 14px;
+  min-height: 20px;
 }
