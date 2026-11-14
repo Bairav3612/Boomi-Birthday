@@ -311,6 +311,45 @@ showPassword.addEventListener("click", function() {
     this.textContent = "Show";
   }
 });
+
+
+
+function updateGateCountdown() {
+  const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
+  const difference = target - Date.now();
+
+  const values = {
+    gateDays: "00",
+    gateHours: "00",
+    gateMinutes: "00",
+    gateSeconds: "00"
+  };
+
+  if (difference > 0) {
+    values.gateDays = String(
+      Math.floor(difference / 86400000)
+    ).padStart(2, "0");
+
+    values.gateHours = String(
+      Math.floor((difference % 86400000) / 3600000)
+    ).padStart(2, "0");
+
+    values.gateMinutes = String(
+      Math.floor((difference % 3600000) / 60000)
+    ).padStart(2, "0");
+
+    values.gateSeconds = String(
+      Math.floor((difference % 60000) / 1000)
+    ).padStart(2, "0");
+  }
+
+  Object.entries(values).forEach(([id, value]) => {
+    document.getElementById(id).textContent = value;
+  });
+}
+
+updateGateCountdown();
+setInterval(updateGateCountdown, 1000);
 </script>
 
 </body>
