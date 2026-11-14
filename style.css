@@ -818,3 +818,139 @@ img[src*="photo5"] {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* PASSWORD WELCOME SCREEN */
+
+#passwordGate {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at top, #482052, transparent 55%),
+    linear-gradient(135deg, #0c0718, #1c0c2d, #090611);
+  transition: opacity .6s ease, visibility .6s ease;
+}
+
+#passwordGate.unlocked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.password-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 25px;
+  text-align: center;
+  border: 1px solid rgba(235, 170, 255, .35);
+  border-radius: 25px;
+  background: rgba(30, 15, 48, .88);
+  box-shadow: 0 0 50px rgba(204, 105, 255, .2);
+}
+
+.lock-icon {
+  font-size: 55px;
+  color: #ff9bd8;
+  margin-bottom: 15px;
+  animation: pulse 2s infinite;
+}
+
+.gate-small {
+  color: #d99bdc;
+  letter-spacing: 3px;
+  font-size: 10px;
+}
+
+.password-card h1 {
+  color: #fff;
+  font-family: Georgia, serif;
+  font-size: 32px;
+  margin: 15px 0;
+}
+
+.password-card h1 span {
+  color: #ff9bd8;
+}
+
+.gate-message {
+  color: #c5b4d2;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.password-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #bd83d7;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #110b20;
+}
+
+.password-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 10px;
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+
+.password-input button {
+  border: none;
+  padding: 12px;
+  color: #ffaddd;
+  background: transparent;
+  cursor: pointer;
+}
+
+.unlock-button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  background: linear-gradient(100deg, #923d9d, #d45caa);
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#passwordError {
+  color: #ff718d;
+  font-size: 13px;
+  min-height: 18px;
+  margin: 10px 0 0;
+}
+
+.gate-footer {
+  color: #b89abe;
+  font-size: 12px;
+  margin-top: 25px;
+}
+
+
+
+
