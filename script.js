@@ -244,17 +244,56 @@ setInterval(makePetal, 850);
 
 
 // Password correct aana udane music play aagum
+
+// BACKGROUND MUSIC
+const musicButton = document.getElementById("musicToggle");
+const music = new Audio("assets/audio/birthday-music.mp3");
+
+music.loop = true;
+music.volume = 0.30;
+
 async function startBackgroundMusic() {
     try {
         await music.play();
 
-        musicButton.textContent = "♫ Music: on";
-        musicButton.setAttribute("aria-pressed", "true");
-
+        if (musicButton) {
+            musicButton.textContent = "♫ Music: on";
+            musicButton.setAttribute("aria-pressed", "true");
+        }
     } catch (error) {
-        console.log("Music playback failed:", error);
+        console.log("Music playback error:", error);
     }
 }
+
+// Manual music ON/OFF button
+if (musicButton) {
+    musicButton.addEventListener("click", async () => {
+        if (music.paused) {
+            await startBackgroundMusic();
+        } else {
+            music.pause();
+            musicButton.textContent = "♫ Music: off";
+            musicButton.setAttribute("aria-pressed", "false");
+        }
+    });
+}
+
+// Pause background music when voice message plays
+const voiceAudio = document.getElementById("voiceAudio");
+
+if (voiceAudio) {
+    voiceAudio.addEventListener("play", () => {
+        if (!music.paused) {
+            music.pause();
+
+            if (musicButton) {
+                musicButton.textContent = "♫ Music: off";
+                musicButton.setAttribute("aria-pressed", "false");
+            }
+        }
+    });
+}
+
 
 // Manual music button
 musicButton.addEventListener("click", async () => {
@@ -309,17 +348,3 @@ closeBtn.addEventListener("click", function () {
 
 });
 
-
-
-
-if (enteredPassword === correctPassword) {
-
-    document.getElementById("passwordScreen").style.display = "none";
-
-    document.getElementById("mainContent").style.display = "block";
-
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.5;
-    music.play();
-
-}
