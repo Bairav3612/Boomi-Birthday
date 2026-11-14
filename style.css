@@ -888,3 +888,31 @@ img[src*="photo5"] {
 .password-card small {
   color: #eabbd0;
 }
+
+
+
+
+.password-input-box {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-box input {
+  width: 100%;
+  padding: 14px 45px 14px 14px;
+  box-sizing: border-box;
+}
+
+#togglePassword {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#passwordError {
+  color: #ff6b91;
+  font-weight: bold;
+}
