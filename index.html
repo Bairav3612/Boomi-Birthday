@@ -281,44 +281,35 @@
 <script>
 (function () {
   const gate = document.getElementById("passwordGate");
+  const main = document.getElementById("mainWebsite");
   const form = document.getElementById("passwordForm");
   const input = document.getElementById("sitePassword");
   const error = document.getElementById("passwordError");
-  const showButton = document.getElementById("showPassword");
 
   const correctPassword = "YouAreMein";
 
-  // Every refresh: return to the login screen
-  history.replaceState(null, "", location.pathname + location.search);
-  window.scrollTo(0, 0);
+  gate.style.display = "flex";
+  main.style.display = "none";
 
-  if (gate) {
-    gate.style.display = "flex";
-  }
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  if (form) {
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      if (input.value === correctPassword) {
-        error.textContent = "";
-        gate.style.display = "none";
-      } else {
-        error.textContent = "Wrong password! Try again ❤️";
-        input.value = "";
-        input.focus();
-      }
-    });
-  }
-
-  if (showButton && input) {
-    showButton.addEventListener("click", function () {
-      input.type = input.type === "password" ? "text" : "password";
-      showButton.textContent =
-        input.type === "password" ? "Show" : "Hide";
-    });
-  }
+    if (input.value === correctPassword) {
+      error.textContent = "";
+      gate.style.display = "none";
+      main.style.display = "block";
+    } else {
+      error.textContent = "Wrong password! Try again ❤️";
+      input.value = "";
+    }
+  });
 })();
 </script>
+
+<div id="mainWebsite" style="display: none;">
+
+  <!-- YOUR COMPLETE MAIN WEBSITE HTML HERE -->
+
+</div>
 </body>
 </html>
