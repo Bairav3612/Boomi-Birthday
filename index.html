@@ -10,6 +10,43 @@
 </head>
 <body>
 
+<!-- PASSWORD WELCOME SCREEN -->
+<div id="passwordGate">
+  <div class="password-card">
+    <div class="lock-icon">♡</div>
+
+    <p class="gate-small">A LITTLE SURPRISE FOR YOU</p>
+
+    <h1>Welcome, <span>Boomika</span></h1>
+
+    <p class="gate-message">
+      This little universe has a secret.<br>
+      Enter the password to unlock it.
+    </p>
+
+    <form id="passwordForm">
+      <div class="password-input">
+        <input
+          type="password"
+          id="sitePassword"
+          placeholder="Enter your password"
+          required
+          autocomplete="off"
+        >
+        <button type="button" id="showPassword">Show</button>
+      </div>
+
+      <p id="passwordError" role="alert"></p>
+
+      <button type="submit" class="unlock-button">
+        Unlock My Surprise ♡
+      </button>
+    </form>
+
+    <p class="gate-footer">Made with love · Bairavan ♡</p>
+  </div>
+</div>
+
 
 
 
