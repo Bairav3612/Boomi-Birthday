@@ -245,6 +245,7 @@ setInterval(makePetal, 850);
 
 // Password correct aana udane music play aagum
 
+
 // BACKGROUND MUSIC
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
@@ -266,7 +267,7 @@ async function startBackgroundMusic() {
     }
 }
 
-// Manual music ON/OFF button
+// Manual music ON/OFF
 if (musicButton) {
     musicButton.addEventListener("click", async () => {
         if (music.paused) {
@@ -293,45 +294,6 @@ if (voiceAudio) {
             }
         }
     });
-}
-if (voiceAudio) {
-    voiceAudio.addEventListener("play", () => {
-        if (!music.paused) {
-            music.pause();
-
-            if (musicButton) {
-                musicButton.textContent = "♫ Music: off";
-                musicButton.setAttribute("aria-pressed", "false");
-            }
-        }
-    });
-}
-
-
-// Manual music button
-musicButton.addEventListener("click", async () => {
-
-    if (music.paused) {
-        await startBackgroundMusic();
-    } else {
-        music.pause();
-
-        musicButton.textContent = "♫ Music: off";
-        musicButton.setAttribute("aria-pressed", "false");
-    }
-
-});
-
-// Personal voice message. Pause background music while the voice note plays.
-const voiceAudio = document.getElementById("voiceAudio");
-if (voiceAudio) {
-  voiceAudio.addEventListener("play", () => {
-    if (!music.paused) {
-      music.pause();
-      musicButton.textContent = "♫ Music: off";
-      musicButton.setAttribute("aria-pressed", "false");
-    }
-  });
 }
 
 
