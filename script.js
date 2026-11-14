@@ -353,3 +353,36 @@ function unlockWebsite() {
     error.textContent = "❌ Wrong password! Try again ❤️";
   }
 }
+
+
+const correctPassword = "Boomika";
+
+function checkPassword() {
+    const enteredPassword =
+        document.getElementById("passwordInput").value;
+
+    const error =
+        document.getElementById("errorMessage");
+
+    if (enteredPassword === correctPassword) {
+        error.textContent = "";
+        window.location.href = "index.html#gallery";
+    } else {
+        error.textContent = "❌ Wrong password! Try again.";
+        error.style.color = "red";
+    }
+}
+
+function togglePassword() {
+    const input = document.getElementById("passwordInput");
+
+    input.type =
+        input.type === "password" ? "text" : "password";
+}
+
+document.getElementById("passwordInput")
+    .addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+    });
