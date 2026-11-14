@@ -304,22 +304,3 @@ if (voiceAudio) {
 
 
 
-
-
-const closeBtn = document.getElementById("closeSurprise");
-
-closeBtn.addEventListener("click", function () {
-
-    const surprise = document.getElementById("surprise");
-    const video = document.querySelector("#surprise video");
-
-    if (video) {
-        video.pause();
-        video.currentTime = 0;
-    }
-
-    surprise.classList.remove("active");
-    surprise.style.display = "none";
-
-});
-
