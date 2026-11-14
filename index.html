@@ -275,48 +275,7 @@
 
 
 
-
-<script>
-(function () {
-    const targetDate = new Date(2026, 11, 31, 0, 0, 0).getTime();
-
-    function runBirthdayCountdown() {
-        const now = Date.now();
-        const difference = targetDate - now;
-
-        const days = document.getElementById("days");
-        const hours = document.getElementById("hours");
-        const minutes = document.getElementById("minutes");
-        const seconds = document.getElementById("seconds");
-        const message = document.getElementById("countdownMessage");
-
-        if (!days || !hours || !minutes || !seconds) {
-            console.error("Main countdown HTML IDs not found!");
-            return;
-        }
-
-        const remaining = Math.max(0, difference);
-
-        days.textContent = Math.floor(remaining / 86400000);
-        hours.textContent = Math.floor((remaining % 86400000) / 3600000);
-        minutes.textContent = Math.floor((remaining % 3600000) / 60000);
-        seconds.textContent = Math.floor((remaining % 60000) / 1000);
-
-        if (difference <= 0 && message) {
-            message.textContent = "Happy Birthday, Boomika! ❤️";
-        }
-    }
-
-    runBirthdayCountdown();
-    setInterval(runBirthdayCountdown, 1000);
-})();
-</script>
-
   <script src="script.js"></script>
-
-
-
-
 
 
 
