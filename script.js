@@ -361,3 +361,37 @@ if (voiceAudio) {
 
 
 
+
+
+
+
+
+// FORCE MAIN COUNTDOWN TEST
+window.addEventListener("load", function () {
+
+    function testCountdown() {
+        const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
+        const diff = target - Date.now();
+
+        const ids = ["days", "hours", "minutes", "seconds"];
+
+        const values = [
+            Math.floor(diff / 86400000),
+            Math.floor((diff % 86400000) / 3600000),
+            Math.floor((diff % 3600000) / 60000),
+            Math.floor((diff % 60000) / 1000)
+        ];
+
+        ids.forEach(function(id, index) {
+            const element = document.getElementById(id);
+
+            if (element) {
+                element.textContent = Math.max(0, values[index]);
+            }
+        });
+    }
+
+    testCountdown();
+    setInterval(testCountdown, 1000);
+
+});
