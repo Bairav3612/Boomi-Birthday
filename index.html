@@ -296,12 +296,12 @@ if (passwordInput.value === correctPassword) {
     passwordError.textContent = "";
     passwordGate.classList.add("unlocked");
 
-    // Automatically play background music
-    startBackgroundMusic();
+    startBackgroundMusic(); // MUSIC STARTS HERE
 
     setTimeout(() => {
-      passwordGate.style.display = "none";
+        passwordGate.style.display = "none";
     }, 650);
+}
 
 } else {
     passwordError.textContent = "Incorrect password! Try again ♡";
