@@ -217,6 +217,9 @@ function updateCountdown() {
     });
     msg.textContent = "It's your birthday, Boomika! Happy Birthday! ♡";
     return;
+// Start the main birthday countdown
+updateCountdown();
+setInterval(updateCountdown, 1000);
   }
   document.getElementById("days").textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
   document.getElementById("hours").textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0");
