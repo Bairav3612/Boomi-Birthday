@@ -1141,3 +1141,21 @@ img[src*="photo5"] {
 
 
 
+/* LOVE NOTE - MAIN PAGE BOTTOM ONLY */
+
+.love-note {
+    display: none;
+    position: static;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 30px 15px;
+    margin: 20px auto 0;
+    font-size: 18px;
+    color: #ffb6d9;
+    line-height: 1.8;
+}
+
+body.site-unlocked .love-note {
+    display: block;
+}
