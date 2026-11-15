@@ -1420,3 +1420,23 @@ body:not(.site-unlocked) .love-note {
 body.site-unlocked .love-note {
     display: block;
 }
+
+
+
+
+
+
+#lastSurpriseScreen {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 999999 !important;
+    background: #020104 !important;
+}
+
+#lastSurpriseScreen[hidden] {
+    display: none !important;
+}
+
+#lastSurpriseScreen:not([hidden]) {
+    display: flex !important;
+}
