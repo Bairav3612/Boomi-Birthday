@@ -320,11 +320,13 @@ if (musicButton) {
 }
 
 
-// Pause music when voice message plays
+
+ // VOICE MESSAGE - BACKGROUND MUSIC CONTROL
+
 const voiceAudio = document.getElementById("voiceAudio");
 let musicWasPlayingBeforeVoice = false;
 
-if (voiceAudio) {
+if (voiceAudio && music) {
 
     // Voice message starts
     voiceAudio.addEventListener("play", () => {
@@ -341,21 +343,21 @@ if (voiceAudio) {
     });
 
     // Voice message completed
-    voiceAudio.addEventListener("ended", () => {
+    voiceAudio.addEventListener("ended", async () => {
         if (musicWasPlayingBeforeVoice) {
-            startBackgroundMusic();
+            await startBackgroundMusic();
+            musicWasPlayingBeforeVoice = false;
         }
     });
 
     // Voice message manually paused
-    voiceAudio.addEventListener("pause", () => {
+    voiceAudio.addEventListener("pause", async () => {
         if (!voiceAudio.ended && musicWasPlayingBeforeVoice) {
-            startBackgroundMusic();
+            await startBackgroundMusic();
+            musicWasPlayingBeforeVoice = false;
         }
     });
 }
-
-
 
 
 
