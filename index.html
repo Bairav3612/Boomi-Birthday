@@ -241,9 +241,6 @@
         <p>Happy Birthday, Boomika. May your universe always be full of light.</p>
         <span>— Bairavan</span>
 
-<button id="lastSurpriseButton" class="primary-btn" type="button">
-    🌹 Last Surprise
-</button>
 
         <h3><em>How is this, i am waiting for your reply...</em></h3>
 
@@ -251,113 +248,6 @@
     </section>
   </main>
 
-// ==========================================
-// LAST SURPRISE - FIXED VERSION
-// ==========================================
-
-(function () {
-
-    const startButton = document.getElementById("lastSurpriseButton");
-    const screen = document.getElementById("lastSurpriseScreen");
-    const closeButton = document.getElementById("closeLastSurprise");
-    const returnButton = document.getElementById("returnBirthday");
-
-    if (!startButton || !screen || !closeButton || !returnButton) {
-        console.error("Last Surprise HTML elements not found!");
-        return;
-    }
-
-    const scene = screen.querySelector(".last-scene");
-    const darkEnding = screen.querySelector(".dark-ending");
-    const paths = screen.querySelectorAll(".couple-outline path");
-
-    let endingTimer = null;
-
-    // Prepare glowing SVG outline
-    paths.forEach(function (path) {
-
-        const length = path.getTotalLength();
-
-        path.style.setProperty("--path-length", length);
-        path.style.strokeDasharray = length;
-        path.style.strokeDashoffset = length;
-
-    });
-
-    // OPEN ANIMATION
-    startButton.addEventListener("click", function () {
-
-        clearTimeout(endingTimer);
-
-        screen.hidden = false;
-        document.body.style.overflow = "hidden";
-
-        darkEnding.style.opacity = "0";
-        darkEnding.style.pointerEvents = "none";
-
-        // Restart scene animation
-        scene.style.animation = "none";
-        void scene.offsetWidth;
-        scene.style.animation = "sceneDisappear 14s ease forwards";
-
-        // Restart all drawing effects
-        paths.forEach(function (path) {
-
-            const length = path.getTotalLength();
-
-            path.style.animation = "none";
-            path.style.strokeDashoffset = length;
-
-            void path.getBoundingClientRect();
-
-            path.style.animation = "";
-
-        });
-
-        // Activate final darkness
-        endingTimer = setTimeout(function () {
-
-            darkEnding.style.opacity = "1";
-            darkEnding.style.pointerEvents = "auto";
-
-        }, 14000);
-
-    });
-
-    // CLOSE ANIMATION
-    function closeAnimation() {
-
-        clearTimeout(endingTimer);
-
-        screen.hidden = true;
-        document.body.style.overflow = "";
-
-    }
-
-    closeButton.addEventListener("click", closeAnimation);
-
-    returnButton.addEventListener("click", function () {
-
-        closeAnimation();
-
-        startButton.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-    });
-
-})();
-  <footer>
-    MADE WITH ♡ FOR BOOMIKA
-    <span>·</span>
-    31 DECEMBER 2026
-</footer>
-
-<!-- Last Surprise animation screen -->
-<div id="lastSurpriseScreen" hidden>
-    <!-- Keep your complete animation HTML here -->
-</div>
 
   <div class="love-note">
   🥰🎀🫰I Love You Boomi🌍🫶🏼🫀...
