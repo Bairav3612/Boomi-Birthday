@@ -322,17 +322,18 @@ if (musicButton) {
 
 
  
-// VOICE MESSAGE - BACKGROUND MUSIC AUTO RESUME
+// VOICE MESSAGE - AUTO PAUSE AND RESUME BACKGROUND MUSIC
 
 const voiceAudio = document.getElementById("voiceAudio");
 
 let resumeMusicAfterVoice = false;
 
+// When voice message starts
 if (voiceAudio && music) {
 
-    // Voice message starts
     voiceAudio.addEventListener("play", () => {
 
+        // Check whether background music was playing
         resumeMusicAfterVoice = !music.paused;
 
         if (resumeMusicAfterVoice) {
@@ -345,38 +346,39 @@ if (voiceAudio && music) {
         }
     });
 
-    // Resume music after voice message is paused or completed
+    // Resume background music
     async function resumeBackgroundMusic() {
 
-        if (!resumeMusicAfterVoice) return;
+        if (!resumeMusicAfterVoice || !music.paused) return;
 
         try {
             await music.play();
+
+            resumeMusicAfterVoice = false;
 
             if (musicButton) {
                 musicButton.textContent = "♫ Music: on";
                 musicButton.setAttribute("aria-pressed", "true");
             }
 
-            resumeMusicAfterVoice = false;
-
         } catch (error) {
-            console.log("Music resume blocked:", error);
+            console.log("Background music resume failed:", error);
         }
     }
 
+    // When voice message is manually paused
     voiceAudio.addEventListener("pause", () => {
+
         if (!voiceAudio.ended) {
             resumeBackgroundMusic();
         }
     });
 
+    // When voice message completes
     voiceAudio.addEventListener("ended", () => {
         resumeBackgroundMusic();
     });
 }
-
-
 
 
 
