@@ -171,25 +171,47 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  
   // OPEN GIFT
-  giftButton.addEventListener("click", () => {
+  giftButton.addEventListener("click", async () => {
     giftMessage.hidden = false;
+
     giftButton.classList.add("open");
     giftButton.setAttribute("aria-expanded", "true");
 
-    // PLAY YOU & ME ANIMATION
     if (youMeAnimation) {
+      youMeAnimation.muted = true;
+      youMeAnimation.playsInline = true;
+      youMeAnimation.loop = true;
+
       youMeAnimation.pause();
       youMeAnimation.currentTime = 0;
+      youMeAnimation.load();
 
-      const animationPlay = youMeAnimation.play();
-
-      if (animationPlay !== undefined) {
-        animationPlay.catch(error => {
-          console.log("You & Me animation:", error);
+      // Wait for the video to become ready
+      try {
+        await new Promise((resolve, reject) => {
+          if (youMeAnimation.readyState >= 2) {
+            resolve();
+          } else {
+            youMeAnimation.addEventListener("canplay", resolve, { once: true });
+            youMeAnimation.addEventListener("error", reject, { once: true });
+          }
         });
+
+        await youMeAnimation.play();
+        console.log("You & Me animation playing!");
+      } catch (error) {
+        console.error("Animation playback failed:", error);
       }
     }
+
+    giftMessage.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  });
+
 
     giftMessage.scrollIntoView({
       behavior: "smooth",
