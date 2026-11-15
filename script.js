@@ -321,18 +321,21 @@ if (musicButton) {
 
 
 
- // VOICE MESSAGE - BACKGROUND MUSIC CONTROL
+ 
+// VOICE MESSAGE - BACKGROUND MUSIC AUTO RESUME
 
 const voiceAudio = document.getElementById("voiceAudio");
-let musicWasPlayingBeforeVoice = false;
+
+let resumeMusicAfterVoice = false;
 
 if (voiceAudio && music) {
 
     // Voice message starts
     voiceAudio.addEventListener("play", () => {
-        musicWasPlayingBeforeVoice = !music.paused;
 
-        if (musicWasPlayingBeforeVoice) {
+        resumeMusicAfterVoice = !music.paused;
+
+        if (resumeMusicAfterVoice) {
             music.pause();
 
             if (musicButton) {
@@ -342,23 +345,36 @@ if (voiceAudio && music) {
         }
     });
 
-    // Voice message completed
-    voiceAudio.addEventListener("ended", async () => {
-        if (musicWasPlayingBeforeVoice) {
-            await startBackgroundMusic();
-            musicWasPlayingBeforeVoice = false;
+    // Resume music after voice message is paused or completed
+    async function resumeBackgroundMusic() {
+
+        if (!resumeMusicAfterVoice) return;
+
+        try {
+            await music.play();
+
+            if (musicButton) {
+                musicButton.textContent = "♫ Music: on";
+                musicButton.setAttribute("aria-pressed", "true");
+            }
+
+            resumeMusicAfterVoice = false;
+
+        } catch (error) {
+            console.log("Music resume blocked:", error);
+        }
+    }
+
+    voiceAudio.addEventListener("pause", () => {
+        if (!voiceAudio.ended) {
+            resumeBackgroundMusic();
         }
     });
 
-    // Voice message manually paused
-    voiceAudio.addEventListener("pause", async () => {
-        if (!voiceAudio.ended && musicWasPlayingBeforeVoice) {
-            await startBackgroundMusic();
-            musicWasPlayingBeforeVoice = false;
-        }
+    voiceAudio.addEventListener("ended", () => {
+        resumeBackgroundMusic();
     });
 }
-
 
 
 
