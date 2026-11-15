@@ -241,11 +241,161 @@
         <p>Happy Birthday, Boomika. May your universe always be full of light.</p>
         <span>— Bairavan</span>
 
+<button id="lastSurpriseButton" class="primary-btn" type="button">
+    🌹 Last Surprise
+</button>
+
         <h3><em>How is this, i am waiting for your reply...</em></h3>
 
       </div>
     </section>
   </main>
+
+<!-- CHAPTER 07: LAST SURPRISE ANIMATION -->
+<div id="lastSurpriseScreen" hidden>
+
+  <button id="closeLastSurprise" type="button" aria-label="Close animation">
+    ✕
+  </button>
+
+  <div class="last-scene">
+
+    <div class="last-heading">
+      <p class="line-one">I Had No Words,</p>
+      <p class="line-two">So I Gave You...</p>
+    </div>
+
+    <svg class="love-couple" viewBox="0 0 800 550"
+         xmlns="http://www.w3.org/2000/svg">
+
+      <defs>
+        <linearGradient id="coupleGlow" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f5a4ed"/>
+          <stop offset="100%" stop-color="#a6c9ff"/>
+        </linearGradient>
+
+        <filter id="neonGlow">
+          <feGaussianBlur stdDeviation="5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <g class="couple-outline"
+         fill="none"
+         stroke="url(#coupleGlow)"
+         stroke-width="3"
+         stroke-linecap="round"
+         stroke-linejoin="round"
+         filter="url(#neonGlow)">
+
+        <!-- Boy's head and hair -->
+        <path d="M245 95
+          Q220 48 250 35
+          Q275 10 310 35
+          Q335 58 315 95
+          Q303 115 278 115
+          Q252 110 245 95Z"/>
+
+        <path d="M247 52 Q265 15 310 40
+          M245 65 Q230 90 250 110"/>
+
+        <!-- Boy's body -->
+        <path d="M250 115
+          Q215 125 200 180
+          L175 320
+          L205 330
+          L225 210
+          L225 430
+          L205 505
+          L255 505
+          L275 355
+          L290 505
+          L335 505
+          L310 430
+          L315 210
+          L350 300"/>
+
+        <!-- Boy's arm offering the flower -->
+        <path d="M210 170 Q260 185 300 225
+          L375 245 L405 230
+          M405 230 Q420 220 430 235
+          M405 230 L425 250"/>
+
+        <!-- Girl's head and hair -->
+        <path d="M475 120
+          Q455 65 500 45
+          Q550 25 570 80
+          Q590 120 555 145
+          Q520 165 485 140Z"/>
+
+        <path d="M470 105 Q460 40 530 35
+          Q595 40 575 120
+          Q570 150 545 170"/>
+
+        <!-- Girl's body and dress -->
+        <path d="M490 150
+          Q460 175 455 220
+          L430 330
+          Q425 365 455 370
+          L420 465
+          Q500 490 600 465
+          L555 355
+          Q575 310 565 220
+          Q555 175 530 155"/>
+
+        <!-- Girl's legs -->
+        <path d="M455 465 L450 515
+          M550 465 L575 515"/>
+
+        <!-- Girl reaching for the rose -->
+        <path d="M460 200 Q435 215 425 245
+          L405 255"/>
+
+        <!-- Rose stem -->
+        <path class="rose-stem"
+          d="M405 235 Q400 300 410 385"/>
+
+        <!-- Rose petals -->
+        <path class="rose-flower"
+          d="M405 235
+          Q380 210 395 195
+          Q410 180 425 198
+          Q445 180 455 200
+          Q465 225 435 238
+          Q420 250 405 235Z"/>
+
+        <path d="M410 300 Q380 280 375 310 Q390 325 410 315
+          M410 330 Q435 305 445 325 Q435 345 410 340"/>
+
+        <!-- Ground -->
+        <path d="M100 520 Q400 510 700 520"
+          opacity=".5"/>
+      </g>
+
+      <g class="rose-glow">
+        <circle cx="420" cy="215" r="28" fill="#ff69c8" opacity=".15"/>
+      </g>
+
+    </svg>
+
+    <div class="last-ending-text">
+      <p class="ending-one">Some feelings...</p>
+      <p class="ending-two">Are beyond words. ♡</p>
+    </div>
+
+  </div>
+
+  <div class="dark-ending">
+    <p>Forever a beautiful memory. 🌹</p>
+    <button id="returnBirthday" type="button">
+      Return to Birthday ♡
+    </button>
+  </div>
+
+</div>
 
   <footer>MADE WITH ♡ FOR BOOMIKA <span>·</span> 31 DECEMBER 2026</footer>
 
