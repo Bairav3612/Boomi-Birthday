@@ -319,12 +319,18 @@ if (musicButton) {
     });
 }
 
+
 // Pause music when voice message plays
 const voiceAudio = document.getElementById("voiceAudio");
+let musicWasPlayingBeforeVoice = false;
 
 if (voiceAudio) {
+
+    // Voice message starts
     voiceAudio.addEventListener("play", () => {
-        if (!music.paused) {
+        musicWasPlayingBeforeVoice = !music.paused;
+
+        if (musicWasPlayingBeforeVoice) {
             music.pause();
 
             if (musicButton) {
@@ -333,11 +339,21 @@ if (voiceAudio) {
             }
         }
     });
+
+    // Voice message completed
+    voiceAudio.addEventListener("ended", () => {
+        if (musicWasPlayingBeforeVoice) {
+            startBackgroundMusic();
+        }
+    });
+
+    // Voice message manually paused
+    voiceAudio.addEventListener("pause", () => {
+        if (!voiceAudio.ended && musicWasPlayingBeforeVoice) {
+            startBackgroundMusic();
+        }
+    });
 }
-
-
-
-
 
 
 
