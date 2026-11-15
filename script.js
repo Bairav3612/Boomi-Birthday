@@ -377,3 +377,101 @@ window.addEventListener("load", function () {
     setInterval(testCountdown, 1000);
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==========================================
+// CHAPTER 07 - LAST SURPRISE ANIMATION
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const startButton = document.getElementById("lastSurpriseButton");
+    const screen = document.getElementById("lastSurpriseScreen");
+    const closeButton = document.getElementById("closeLastSurprise");
+    const returnButton = document.getElementById("returnBirthday");
+    const scene = screen.querySelector(".last-scene");
+    const paths = screen.querySelectorAll(".couple-outline path");
+    const darkEnding = screen.querySelector(".dark-ending");
+
+    let endingTimer;
+
+    if (!startButton || !screen || !closeButton || !returnButton) {
+        console.error("Last Surprise elements are missing.");
+        return;
+    }
+
+    // Calculate actual SVG line lengths for drawing animation
+    paths.forEach(function (path) {
+        const length = path.getTotalLength();
+
+        path.style.setProperty("--path-length", length);
+        path.style.strokeDasharray = length;
+        path.style.strokeDashoffset = length;
+    });
+
+    // START ANIMATION ONLY AFTER BUTTON CLICK
+    startButton.addEventListener("click", function () {
+
+        clearTimeout(endingTimer);
+
+        screen.hidden = false;
+        darkEnding.style.pointerEvents = "none";
+
+        // Restart all animations
+        scene.style.animation = "none";
+        void scene.offsetWidth;
+        scene.style.animation = "";
+
+        // Reset SVG lines
+        paths.forEach(function (path) {
+            const length = path.getTotalLength();
+
+            path.style.animation = "none";
+            path.style.strokeDashoffset = length;
+            void path.getBoundingClientRect();
+            path.style.animation = "";
+        });
+
+        screen.scrollTop = 0;
+
+        // Enable final dark screen button after animation
+        endingTimer = setTimeout(function () {
+            darkEnding.style.pointerEvents = "auto";
+        }, 14500);
+
+    });
+
+    // CLOSE ANIMATION
+    function closeAnimation() {
+        clearTimeout(endingTimer);
+        screen.hidden = true;
+        darkEnding.style.pointerEvents = "none";
+    }
+
+    closeButton.addEventListener("click", closeAnimation);
+    returnButton.addEventListener("click", function () {
+        closeAnimation();
+
+        startButton.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
+
+});
