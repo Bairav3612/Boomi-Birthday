@@ -438,39 +438,48 @@ window.addEventListener("load", function () {
 
 
 
-// LAST SURPRISE BUTTON - PLAY ANIMATION
+// LAST SURPRISE BUTTON - PLAY AND CLOSE VIDEO
+
 const lastSurpriseButton = document.getElementById("lastSurpriseButton");
 const lastSurpriseContent = document.getElementById("lastSurpriseContent");
 const youMeAnimation = document.getElementById("youMeAnimation");
 
 if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
 
-  lastSurpriseButton.addEventListener("click", async function () {
-    lastSurpriseContent.style.display = "block";
-    lastSurpriseButton.style.display = "none";
+    // Initially hide video
+    lastSurpriseContent.hidden = true;
 
-    youMeAnimation.currentTime = 0;
+    // Button click
+    lastSurpriseButton.addEventListener("click", async function () {
 
-    try {
-      await youMeAnimation.play();
-    } catch (error) {
-      console.log("Video playback error:", error);
-    }
+        lastSurpriseContent.hidden = false;
+        lastSurpriseButton.style.display = "none";
 
-    lastSurpriseContent.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
+        youMeAnimation.currentTime = 0;
+
+        lastSurpriseContent.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        try {
+            await youMeAnimation.play();
+        } catch (error) {
+            console.log("Video playback error:", error);
+        }
     });
-  });
 
-  // VIDEO COMPLETED - CLOSE VIDEO
-  youMeAnimation.addEventListener("ended", function () {
-    youMeAnimation.pause();
-    youMeAnimation.currentTime = 0;
+    // Automatically close after video ends
+    youMeAnimation.addEventListener("ended", function () {
 
-    lastSurpriseContent.style.display = "none";
-    lastSurpriseButton.style.display = "inline-block";
-    lastSurpriseButton.textContent = "♡ Watch Again ♡";
-  });
+        youMeAnimation.pause();
+        youMeAnimation.currentTime = 0;
+
+        lastSurpriseContent.hidden = true;
+
+        lastSurpriseButton.style.display = "inline-block";
+        lastSurpriseButton.textContent = "♡ Watch Again ♡";
+
+    });
 
 }
