@@ -1216,3 +1216,35 @@ body.site-unlocked .love-note {
     background: #080314;
     object-fit: contain;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#lastSurprise {
+    display: block;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#lastSurpriseButton {
+    display: inline-block;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
