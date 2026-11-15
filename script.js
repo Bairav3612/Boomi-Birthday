@@ -452,34 +452,19 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
     // Button click
     lastSurpriseButton.addEventListener("click", async function () {
 
-        lastSurpriseContent.hidden = false;
-        lastSurpriseButton.style.display = "none";
+    lastSurpriseContent.hidden = false;
+    lastSurpriseButton.style.display = "none";
 
-        youMeAnimation.currentTime = 0;
+    youMeAnimation.currentTime = 0;
 
-        lastSurpriseContent.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-        try {
-            await youMeAnimation.play();
-        } catch (error) {
-            console.log("Video playback error:", error);
-        }
+    lastSurpriseContent.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
     });
 
-    // Automatically close after video ends
-    youMeAnimation.addEventListener("ended", function () {
-
-        youMeAnimation.pause();
-        youMeAnimation.currentTime = 0;
-
-        lastSurpriseContent.hidden = true;
-
-        lastSurpriseButton.style.display = "inline-block";
-        lastSurpriseButton.textContent = "♡ Watch Again ♡";
-
-    });
-
-}
+    try {
+        await youMeAnimation.play();
+    } catch (error) {
+        console.log("Video playback error:", error);
+    }
+});
