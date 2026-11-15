@@ -430,3 +430,55 @@ window.addEventListener("load", function () {
 
 
 
+
+
+
+
+
+
+
+
+// LAST SURPRISE BUTTON - PLAY ANIMATION
+
+const lastSurpriseButton =
+    document.getElementById("lastSurpriseButton");
+
+const lastSurpriseContent =
+    document.getElementById("lastSurpriseContent");
+
+const youMeAnimation =
+    document.getElementById("youMeAnimation");
+
+if (
+    lastSurpriseButton &&
+    lastSurpriseContent &&
+    youMeAnimation
+) {
+
+    lastSurpriseButton.addEventListener("click", async function () {
+
+        // Show animation section
+        lastSurpriseContent.style.display = "block";
+
+        // Change button text
+        lastSurpriseButton.textContent = "♡ Your Surprise ♡";
+
+        // Start video from beginning
+        youMeAnimation.currentTime = 0;
+
+        // Play animation
+        try {
+            await youMeAnimation.play();
+        } catch (error) {
+            console.log("Video playback error:", error);
+        }
+
+        // Scroll to video
+        lastSurpriseContent.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    });
+
+}
