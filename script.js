@@ -438,7 +438,7 @@ window.addEventListener("load", function () {
 
 
 
-// LAST SURPRISE BUTTON - PLAY AND CLOSE VIDEO
+// LAST SURPRISE VIDEO
 
 const lastSurpriseButton = document.getElementById("lastSurpriseButton");
 const lastSurpriseContent = document.getElementById("lastSurpriseContent");
@@ -446,25 +446,39 @@ const youMeAnimation = document.getElementById("youMeAnimation");
 
 if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
 
-    // Initially hide video
-    lastSurpriseContent.hidden = true;
-
-    // Button click
     lastSurpriseButton.addEventListener("click", async function () {
 
-    lastSurpriseContent.hidden = false;
-    lastSurpriseButton.style.display = "none";
+        lastSurpriseContent.hidden = false;
+        lastSurpriseButton.style.display = "none";
 
-    youMeAnimation.currentTime = 0;
+        youMeAnimation.load();
 
-    lastSurpriseContent.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
+        youMeAnimation.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        try {
+            await youMeAnimation.play();
+        } catch (error) {
+            console.log("Video error:", error);
+            lastSurpriseButton.style.display = "inline-block";
+            lastSurpriseButton.textContent = "Try Again ♡";
+        }
     });
 
-    try {
-        await youMeAnimation.play();
-    } catch (error) {
-        console.log("Video playback error:", error);
-    }
-});
+    youMeAnimation.addEventListener("ended", function () {
+
+        youMeAnimation.pause();
+        youMeAnimation.currentTime = 0;
+
+        lastSurpriseContent.hidden = true;
+
+        lastSurpriseButton.style.display = "inline-block";
+        lastSurpriseButton.textContent = "♡ Watch Again ♡";
+    });
+
+    youMeAnimation.addEventListener("error", function () {
+        console.log("Video file could not be loaded.");
+    });
+}
