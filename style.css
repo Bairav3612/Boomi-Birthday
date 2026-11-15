@@ -1126,3 +1126,277 @@ img[src*="photo5"] {
 
     z-index: 9999;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   CHAPTER 07 - CINEMATIC LAST SURPRISE
+========================================== */
+
+#lastSurpriseScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #020104;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#lastSurpriseScreen[hidden] {
+  display: none !important;
+}
+
+#closeLastSurprise {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 5;
+  background: transparent;
+  border: 1px solid #b98aff66;
+  color: white;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.last-scene {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  animation: sceneDisappear 14s ease forwards;
+}
+
+.last-heading {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  color: #f6b8ed;
+  text-shadow: 0 0 15px #df8bff;
+}
+
+.last-heading p {
+  margin: 8px 0;
+  opacity: 0;
+}
+
+.last-heading .line-one {
+  animation: romanticText 2s ease 4.8s forwards;
+}
+
+.last-heading .line-two {
+  animation: romanticText 2s ease 6.2s forwards;
+}
+
+.love-couple {
+  width: min(95vw, 760px);
+  height: auto;
+  max-height: 65vh;
+  overflow: visible;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -43%);
+}
+
+.couple-outline path {
+  stroke-dasharray: var(--path-length, 1000);
+  stroke-dashoffset: var(--path-length, 1000);
+  animation: drawLove 5s ease forwards;
+}
+
+.couple-outline path:nth-child(2n) {
+  animation-delay: .3s;
+}
+
+.couple-outline path:nth-child(3n) {
+  animation-delay: .6s;
+}
+
+.rose-stem {
+  animation-delay: 3s !important;
+}
+
+.rose-flower {
+  animation-delay: 3.5s !important;
+}
+
+.rose-glow {
+  opacity: 0;
+  animation: rosePulse 2s ease 5s infinite alternate;
+}
+
+.last-ending-text {
+  position: absolute;
+  bottom: 8%;
+  width: 100%;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  color: #f7b8e8;
+  text-shadow: 0 0 20px #e77bff;
+}
+
+.last-ending-text p {
+  margin: 8px;
+  opacity: 0;
+}
+
+.ending-one {
+  animation: romanticText 2s ease 8s forwards;
+}
+
+.ending-two {
+  animation: romanticText 2s ease 9.5s forwards;
+}
+
+.dark-ending {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  opacity: 0;
+  pointer-events: none;
+  animation: finalDark 1.5s ease 13s forwards;
+}
+
+.dark-ending p {
+  color: #eab4e9;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  text-align: center;
+  padding: 15px;
+  text-shadow: 0 0 20px #e77bff;
+}
+
+#returnBirthday {
+  background: transparent;
+  border: 1px solid #d99bff;
+  color: white;
+  padding: 13px 25px;
+  border-radius: 30px;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 0 20px #b66cff44;
+}
+
+#returnBirthday:hover {
+  background: #30113c;
+}
+
+/* DRAW THE COUPLE */
+
+@keyframes drawLove {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* TEXT APPEARANCE */
+
+@keyframes romanticText {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* ROSE LIGHT */
+
+@keyframes rosePulse {
+  from {
+    opacity: .2;
+    transform: scale(.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* FINAL DISAPPEARING EFFECT */
+
+@keyframes sceneDisappear {
+  0%, 75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes finalDark {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media(max-width:600px) {
+  .love-couple {
+    width: 110vw;
+    max-height: 55vh;
+  }
+
+  .last-heading {
+    top: 13%;
+  }
+
+  .last-ending-text {
+    bottom: 12%;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .couple-outline path,
+  .last-heading p,
+  .last-ending-text p,
+  .last-scene,
+  .dark-ending {
+    animation-duration: .1ms !important;
+  }
+}
