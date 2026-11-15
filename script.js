@@ -156,14 +156,12 @@ reasonButton.addEventListener("click", () => {
 
 
 
-
-// MAGIC GIFT BOX - WITH YOU & ME ANIMATION
+// MAGIC GIFT BOX - FIXED CLOSE BUTTON
 
 document.addEventListener("DOMContentLoaded", () => {
   const giftButton = document.getElementById("giftButton");
   const giftMessage = document.getElementById("giftMessage");
   const giftVideo = document.getElementById("giftVideo");
-  const youMeAnimation = document.getElementById("youMeAnimation");
   const closeGiftButton = document.getElementById("closeGiftButton");
 
   if (!giftButton || !giftMessage || !giftVideo || !closeGiftButton) {
@@ -171,47 +169,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  
   // OPEN GIFT
-  giftButton.addEventListener("click", async () => {
+  giftButton.addEventListener("click", () => {
     giftMessage.hidden = false;
-
     giftButton.classList.add("open");
     giftButton.setAttribute("aria-expanded", "true");
-
-    if (youMeAnimation) {
-      youMeAnimation.muted = true;
-      youMeAnimation.playsInline = true;
-      youMeAnimation.loop = true;
-
-      youMeAnimation.pause();
-      youMeAnimation.currentTime = 0;
-      youMeAnimation.load();
-
-      // Wait for the video to become ready
-      try {
-        await new Promise((resolve, reject) => {
-          if (youMeAnimation.readyState >= 2) {
-            resolve();
-          } else {
-            youMeAnimation.addEventListener("canplay", resolve, { once: true });
-            youMeAnimation.addEventListener("error", reject, { once: true });
-          }
-        });
-
-        await youMeAnimation.play();
-        console.log("You & Me animation playing!");
-      } catch (error) {
-        console.error("Animation playback failed:", error);
-      }
-    }
-
-    giftMessage.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  });
-
 
     giftMessage.scrollIntoView({
       behavior: "smooth",
@@ -230,12 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
       giftVideo.currentTime = 0;
     } catch (error) {
       console.log("Video reset:", error);
-    }
-
-    // STOP YOU & ME ANIMATION
-    if (youMeAnimation) {
-      youMeAnimation.pause();
-      youMeAnimation.currentTime = 0;
     }
 
     giftMessage.hidden = true;
@@ -421,7 +377,6 @@ window.addEventListener("load", function () {
     setInterval(testCountdown, 1000);
 
 });
-
 
 
 
