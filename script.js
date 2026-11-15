@@ -156,12 +156,14 @@ reasonButton.addEventListener("click", () => {
 
 
 
-// MAGIC GIFT BOX - FIXED CLOSE BUTTON
+
+// MAGIC GIFT BOX - WITH YOU & ME ANIMATION
 
 document.addEventListener("DOMContentLoaded", () => {
   const giftButton = document.getElementById("giftButton");
   const giftMessage = document.getElementById("giftMessage");
   const giftVideo = document.getElementById("giftVideo");
+  const youMeAnimation = document.getElementById("youMeAnimation");
   const closeGiftButton = document.getElementById("closeGiftButton");
 
   if (!giftButton || !giftMessage || !giftVideo || !closeGiftButton) {
@@ -174,6 +176,20 @@ document.addEventListener("DOMContentLoaded", () => {
     giftMessage.hidden = false;
     giftButton.classList.add("open");
     giftButton.setAttribute("aria-expanded", "true");
+
+    // PLAY YOU & ME ANIMATION
+    if (youMeAnimation) {
+      youMeAnimation.pause();
+      youMeAnimation.currentTime = 0;
+
+      const animationPlay = youMeAnimation.play();
+
+      if (animationPlay !== undefined) {
+        animationPlay.catch(error => {
+          console.log("You & Me animation:", error);
+        });
+      }
+    }
 
     giftMessage.scrollIntoView({
       behavior: "smooth",
@@ -192,6 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
       giftVideo.currentTime = 0;
     } catch (error) {
       console.log("Video reset:", error);
+    }
+
+    // STOP YOU & ME ANIMATION
+    if (youMeAnimation) {
+      youMeAnimation.pause();
+      youMeAnimation.currentTime = 0;
     }
 
     giftMessage.hidden = true;
