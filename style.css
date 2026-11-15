@@ -1159,3 +1159,37 @@ img[src*="photo5"] {
 body.site-unlocked .love-note {
     display: block;
 }
+
+
+
+
+
+
+/* LOVE NOTE - SHOW ONLY AT MAIN PAGE BOTTOM */
+
+body:not(.site-unlocked) .love-note {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+body.site-unlocked .love-note {
+    display: block !important;
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 35px 15px;
+    margin: 20px auto 0;
+    font-size: 18px;
+    color: #ffb6d9;
+    background: transparent;
+    z-index: 1;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
