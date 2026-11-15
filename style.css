@@ -1400,3 +1400,23 @@ img[src*="photo5"] {
     animation-duration: .1ms !important;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Hide love note before password unlock */
+body:not(.site-unlocked) .love-note {
+    display: none !important;
+}
+
+/* Show love note after password unlock */
+body.site-unlocked .love-note {
+    display: block;
+}
