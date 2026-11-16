@@ -51,25 +51,39 @@
 </div>
 
 
-    <form id="passwordForm">
-      <div class="password-input">
+    
+<form id="passwordForm">
+
+    <!-- USERNAME -->
+    <div class="password-input">
         <input
-          type="password"
-          id="sitePassword"
-          placeholder="Enter your password"
-          required
-          autocomplete="off"
+            type="text"
+            id="siteUsername"
+            placeholder="Enter your username"
+            required
+            autocomplete="username"
+        >
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="password-input">
+        <input
+            type="password"
+            id="sitePassword"
+            placeholder="Enter your password"
+            required
+            autocomplete="current-password"
         >
         <button type="button" id="showPassword">Show</button>
-      </div>
+    </div>
 
-      <p id="passwordError" role="alert"></p>
+    <p id="passwordError" role="alert"></p>
 
-
-      <button type="submit" class="unlock-button">
+    <button type="submit" class="unlock-button">
         Unlock My Surprise ♡
-      </button>
-    </form>
+    </button>
+
+</form>
 
     <p class="gate-footer">Made with love · Bairavan ♡</p>
   </div>
