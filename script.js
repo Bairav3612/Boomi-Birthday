@@ -461,8 +461,21 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
         });
 
         try {
-            await youMeAnimation.play();
-        } catch (error) {
+    // Play the Last Surprise video
+    await youMeAnimation.play();
+
+    // Keep background music playing too
+    if (music && music.paused) {
+        await music.play();
+    }
+
+    if (musicButton) {
+        musicButton.textContent = "♫ Music: on";
+        musicButton.setAttribute("aria-pressed", "true");
+    }
+
+} catch (error) {
+    console.log("Video or music playback error:", error);
             console.log("Video error:", error);
             lastSurpriseButton.style.display = "inline-block";
             lastSurpriseButton.textContent = "Try Again ♡";
