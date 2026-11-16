@@ -40,19 +40,39 @@
     </p>
 
 
-<div class="password-input">
-    <input
-        type="text"
-        id="siteUsername"
-        placeholder="Enter your username"
-        required
-        autocomplete="username"
-    >
-</div>
 
-
-    
 <form id="passwordForm">
+
+  <!-- Username -->
+  <div class="password-input">
+    <input
+      type="text"
+      id="siteUsername"
+      placeholder="Enter your username"
+      required
+      autocomplete="username"
+    >
+  </div>
+
+  <!-- Password -->
+  <div class="password-input">
+    <input
+      type="password"
+      id="sitePassword"
+      placeholder="Enter your password"
+      required
+      autocomplete="off"
+    >
+    <button type="button" id="showPassword">Show</button>
+  </div>
+
+  <p id="passwordError" role="alert"></p>
+
+  <button type="submit" class="unlock-button">
+    Unlock My Surprise ♡
+  </button>
+
+</form>
 
     <!-- USERNAME -->
     <div class="password-input">
