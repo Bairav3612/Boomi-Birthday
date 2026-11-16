@@ -285,22 +285,50 @@ setInterval(makePetal, 850);
 // Password correct aana udane music play aagum
 
 
-// BACKGROUND MUSIC
+
+// ============================================
+// SMART BACKGROUND MUSIC CONTROL
+// ============================================
+
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
+
+const voiceAudio = document.getElementById("voiceAudio");
+const songAudio = document.getElementById("songAudio");
+
+const giftVideo = document.getElementById("giftVideo");
+const youMeAnimation = document.getElementById("youMeAnimation");
 
 music.loop = true;
 music.volume = 0.30;
 
-// Start music after correct password
+// Track which media is currently playing
+let activeMedia = null;
+let resumeBackgroundAfterMedia = false;
+
+// Update music button
+function updateMusicButton(isOn) {
+    if (!musicButton) return;
+
+    musicButton.textContent = isOn
+        ? "♫ Music: on"
+        : "♫ Music: off";
+
+    musicButton.setAttribute(
+        "aria-pressed",
+        String(isOn)
+    );
+}
+
+// Start background music
 async function startBackgroundMusic() {
+
+    // Don't play background music during another media
+    if (activeMedia && !activeMedia.paused) return;
+
     try {
         await music.play();
-
-        if (musicButton) {
-            musicButton.textContent = "♫ Music: on";
-            musicButton.setAttribute("aria-pressed", "true");
-        }
+        updateMusicButton(true);
     } catch (error) {
         console.log("Music playback error:", error);
     }
@@ -308,17 +336,82 @@ async function startBackgroundMusic() {
 
 // Manual music ON/OFF
 if (musicButton) {
+
     musicButton.addEventListener("click", async () => {
+
         if (music.paused) {
+
+            if (activeMedia && !activeMedia.paused) return;
+
             await startBackgroundMusic();
+
         } else {
+
             music.pause();
-            musicButton.textContent = "♫ Music: off";
-            musicButton.setAttribute("aria-pressed", "false");
+            updateMusicButton(false);
         }
     });
 }
 
+// ============================================
+// AUTO PAUSE MUSIC FOR ALL AUDIO AND VIDEOS
+// ============================================
+
+const mediaElements = [
+    voiceAudio,
+    songAudio,
+    giftVideo,
+    youMeAnimation
+].filter(Boolean);
+
+mediaElements.forEach((media) => {
+
+    // When song, voice or video starts
+    media.addEventListener("play", () => {
+
+        // Remember whether background music was playing
+        if (!activeMedia) {
+            resumeBackgroundAfterMedia = !music.paused;
+        }
+
+        activeMedia = media;
+
+        // Stop background music
+        music.pause();
+        updateMusicButton(false);
+
+    });
+
+    // When media is manually paused
+    media.addEventListener("pause", async () => {
+
+        if (activeMedia !== media) return;
+
+        if (!media.ended) {
+
+            activeMedia = null;
+
+            if (resumeBackgroundAfterMedia) {
+                resumeBackgroundAfterMedia = false;
+                await startBackgroundMusic();
+            }
+        }
+    });
+
+    // When song or video completes
+    media.addEventListener("ended", async () => {
+
+        if (activeMedia !== media) return;
+
+        activeMedia = null;
+
+        if (resumeBackgroundAfterMedia) {
+            resumeBackgroundAfterMedia = false;
+            await startBackgroundMusic();
+        }
+    });
+
+});
 
 
  
