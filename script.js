@@ -299,7 +299,6 @@ const mediaElements = [
     document.getElementById("voiceAudio"),
     document.getElementById("songAudio"),
     document.getElementById("giftVideo"),
-    document.getElementById("youMeAnimation")
 ].filter(Boolean);
 
 let activeMedia = new Set();
