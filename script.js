@@ -287,26 +287,23 @@ setInterval(makePetal, 850);
 
 
 // ============================================
-// SMART BACKGROUND MUSIC CONTROL
+// BACKGROUND MUSIC - SMART AUTO PAUSE SYSTEM
 // ============================================
 
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
 
-const voiceAudio = document.getElementById("voiceAudio");
-const songAudio = document.getElementById("songAudio");
+const mediaElements = [
+    document.getElementById("voiceAudio"),
+    document.getElementById("songAudio"),
+    document.getElementById("giftVideo"),
+    document.getElementById("youMeAnimation")
+].filter(Boolean);
 
-const giftVideo = document.getElementById("giftVideo");
-const youMeAnimation = document.getElementById("youMeAnimation");
+let activeMedia = new Set();
+let resumeMusicAfterMedia = false;
 
-music.loop = true;
-music.volume = 0.30;
-
-// Track which media is currently playing
-let activeMedia = null;
-let resumeBackgroundAfterMedia = false;
-
-// Update music button
+// Music button update
 function updateMusicButton(isOn) {
     if (!musicButton) return;
 
@@ -314,164 +311,83 @@ function updateMusicButton(isOn) {
         ? "♫ Music: on"
         : "♫ Music: off";
 
-    musicButton.setAttribute(
-        "aria-pressed",
-        String(isOn)
-    );
+    musicButton.setAttribute("aria-pressed", String(isOn));
 }
 
 // Start background music
 async function startBackgroundMusic() {
-
-    // Don't play background music during another media
-    if (activeMedia && !activeMedia.paused) return;
+    if (!music || activeMedia.size > 0) return;
 
     try {
         await music.play();
         updateMusicButton(true);
     } catch (error) {
-        console.log("Music playback error:", error);
+        console.log("Background music error:", error);
+        updateMusicButton(false);
     }
 }
 
-// Manual music ON/OFF
-if (musicButton) {
+// Manual music button
+if (musicButton && music) {
+    musicButton.addEventListener("click", async function () {
 
-    musicButton.addEventListener("click", async () => {
+        if (activeMedia.size > 0) {
+            return;
+        }
 
         if (music.paused) {
-
-            if (activeMedia && !activeMedia.paused) return;
-
             await startBackgroundMusic();
-
         } else {
-
             music.pause();
             updateMusicButton(false);
         }
     });
 }
 
-// ============================================
-// AUTO PAUSE MUSIC FOR ALL AUDIO AND VIDEOS
-// ============================================
+// Pause background music when another media starts
+function mediaStarted(media) {
 
-const mediaElements = [
-    voiceAudio,
-    songAudio,
-    giftVideo,
-    youMeAnimation
-].filter(Boolean);
+    if (activeMedia.size === 0) {
+        resumeMusicAfterMedia = !music.paused;
+    }
 
-mediaElements.forEach((media) => {
+    activeMedia.add(media);
 
-    // When song, voice or video starts
-    media.addEventListener("play", () => {
+    music.pause();
+    updateMusicButton(false);
+}
 
-        // Remember whether background music was playing
-        if (!activeMedia) {
-            resumeBackgroundAfterMedia = !music.paused;
-        }
+// Resume background music after media stops
+async function mediaStopped(media) {
 
-        activeMedia = media;
+    activeMedia.delete(media);
 
-        // Stop background music
-        music.pause();
-        updateMusicButton(false);
+    if (activeMedia.size === 0 && resumeMusicAfterMedia) {
+        resumeMusicAfterMedia = false;
+        await startBackgroundMusic();
+    }
+}
 
+// Apply to voice, song and both videos
+mediaElements.forEach(function (media) {
+
+    media.addEventListener("play", function () {
+        mediaStarted(media);
     });
 
-    // When media is manually paused
-    media.addEventListener("pause", async () => {
-
-        if (activeMedia !== media) return;
-
+    media.addEventListener("pause", function () {
         if (!media.ended) {
-
-            activeMedia = null;
-
-            if (resumeBackgroundAfterMedia) {
-                resumeBackgroundAfterMedia = false;
-                await startBackgroundMusic();
-            }
+            mediaStopped(media);
         }
     });
 
-    // When song or video completes
-    media.addEventListener("ended", async () => {
-
-        if (activeMedia !== media) return;
-
-        activeMedia = null;
-
-        if (resumeBackgroundAfterMedia) {
-            resumeBackgroundAfterMedia = false;
-            await startBackgroundMusic();
-        }
+    media.addEventListener("ended", function () {
+        mediaStopped(media);
     });
 
 });
 
-
- 
-// VOICE MESSAGE - AUTO PAUSE AND RESUME BACKGROUND MUSIC
-
-const voiceAudio = document.getElementById("voiceAudio");
-
-let resumeMusicAfterVoice = false;
-
-// When voice message starts
-if (voiceAudio && music) {
-
-    voiceAudio.addEventListener("play", () => {
-
-        // Check whether background music was playing
-        resumeMusicAfterVoice = !music.paused;
-
-        if (resumeMusicAfterVoice) {
-            music.pause();
-
-            if (musicButton) {
-                musicButton.textContent = "♫ Music: off";
-                musicButton.setAttribute("aria-pressed", "false");
-            }
-        }
-    });
-
-    // Resume background music
-    async function resumeBackgroundMusic() {
-
-        if (!resumeMusicAfterVoice || !music.paused) return;
-
-        try {
-            await music.play();
-
-            resumeMusicAfterVoice = false;
-
-            if (musicButton) {
-                musicButton.textContent = "♫ Music: on";
-                musicButton.setAttribute("aria-pressed", "true");
-            }
-
-        } catch (error) {
-            console.log("Background music resume failed:", error);
-        }
-    }
-
-    // When voice message is manually paused
-    voiceAudio.addEventListener("pause", () => {
-
-        if (!voiceAudio.ended) {
-            resumeBackgroundMusic();
-        }
-    });
-
-    // When voice message completes
-    voiceAudio.addEventListener("ended", () => {
-        resumeBackgroundMusic();
-    });
-}
+console.log("Background music control system loaded successfully.");
 
 
 
