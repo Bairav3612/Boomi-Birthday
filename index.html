@@ -40,76 +40,36 @@
     </p>
 
 
-
-
-
-<form id="passwordForm">
-
-
-<form id="passwordForm">
-
-  <div class="password-input">
+<div class="password-input">
     <input
-      type="text"
-      id="siteUsername"
-      placeholder="Enter your username"
-      required
-      autocomplete="username"
+        type="text"
+        id="siteUsername"
+        placeholder="Enter your username"
+        required
+        autocomplete="username"
     >
-  </div>
-
-  <div class="password-input">
-    <input
-      type="password"
-      id="sitePassword"
-      placeholder="Enter your password"
-      required
-      autocomplete="off"
-    >
-    <button type="button" id="showPassword">Show</button>
-  </div>
-
-  <p id="passwordError" role="alert"></p>
-
-  <button type="submit" class="unlock-button">
-    Unlock My Surprise ♡
-  </button>
-
-</form>
+</div>
 
 
- 
-
-    <!-- USERNAME -->
-    <div class="password-input">
+    <form id="passwordForm">
+      <div class="password-input">
         <input
-            type="text"
-            id="siteUsername"
-            placeholder="Enter your username"
-            required
-            autocomplete="username"
-        >
-    </div>
-
-    <!-- PASSWORD -->
-    <div class="password-input">
-        <input
-            type="password"
-            id="sitePassword"
-            placeholder="Enter your password"
-            required
-            autocomplete="current-password"
+          type="password"
+          id="sitePassword"
+          placeholder="Enter your password"
+          required
+          autocomplete="off"
         >
         <button type="button" id="showPassword">Show</button>
-    </div>
+      </div>
 
-    <p id="passwordError" role="alert"></p>
+      <p id="passwordError" role="alert"></p>
 
-    <button type="submit" class="unlock-button">
+
+      <button type="submit" class="unlock-button">
         Unlock My Surprise ♡
-    </button>
-
-</form>
+      </button>
+    </form>
 
     <p class="gate-footer">Made with love · Bairavan ♡</p>
   </div>
@@ -416,26 +376,14 @@
             event.preventDefault();
 
             
-
 const username = document.getElementById("siteUsername");
 
-const enteredUsername = username.value
-    .trim()
-    .replace(/\s+/g, " ")
-    .toUpperCase();
-
-const expectedUsername = correctUsername
-    .trim()
-    .replace(/\s+/g, " ")
-    .toUpperCase();
-
-if (enteredUsername !== expectedUsername) {
+if (username.value.trim().toLowerCase() !== correctUsername.toLowerCase()) {
     error.textContent = "Incorrect username! Try again ♡";
     username.value = "";
     username.focus();
     return;
 }
-
 
 if (input.value.trim() !== correctPassword) {
     error.textContent = "Incorrect password! Try again ♡";
