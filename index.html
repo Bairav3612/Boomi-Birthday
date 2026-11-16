@@ -390,14 +390,26 @@
             event.preventDefault();
 
             
+
 const username = document.getElementById("siteUsername");
 
-if (username.value.trim().toLowerCase() !== correctUsername.toLowerCase()) {
+const enteredUsername = username.value
+    .trim()
+    .replace(/\s+/g, " ")
+    .toUpperCase();
+
+const expectedUsername = correctUsername
+    .trim()
+    .replace(/\s+/g, " ")
+    .toUpperCase();
+
+if (enteredUsername !== expectedUsername) {
     error.textContent = "Incorrect username! Try again ♡";
     username.value = "";
     username.focus();
     return;
 }
+
 
 if (input.value.trim() !== correctPassword) {
     error.textContent = "Incorrect password! Try again ♡";
