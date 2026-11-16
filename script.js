@@ -460,19 +460,28 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
             block: "center"
         });
 
-        try {
-    // Play the Last Surprise video
-    await youMeAnimation.play();
+        
+try {
+    // Start video and background music together
+    const playTasks = [youMeAnimation.play()];
 
-    // Keep background music playing too
     if (music && music.paused) {
-        await music.play();
+        playTasks.push(music.play());
     }
+
+    await Promise.all(playTasks);
 
     if (musicButton) {
         musicButton.textContent = "♫ Music: on";
         musicButton.setAttribute("aria-pressed", "true");
     }
+
+} catch (error) {
+    console.log("Video or music playback error:", error);
+    lastSurpriseButton.style.display = "inline-block";
+    lastSurpriseButton.textContent = "Try Again ♡";
+}
+
 
 } catch (error) {
     console.log("Video or music playback error:", error);
