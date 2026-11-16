@@ -379,21 +379,9 @@ gate.style.display = "none";
 
             window.scrollTo(0, 0);
 
-            if (music) {
-                try {
-                    await music.play();
-
-                    if (musicButton) {
-                        musicButton.textContent = "♫ Music: on";
-                        musicButton.setAttribute("aria-pressed", "true");
-                    }
-                } catch (err) {
-                    console.log("Music blocked. Tap the Music button.", err);
-                    if (musicButton) {
-                        musicButton.textContent = "♫ Music: off";
-                    }
-                }
-            }
+            if (window.startBackgroundMusic) {
+    await window.startBackgroundMusic();
+}
         });
     }
 })();
