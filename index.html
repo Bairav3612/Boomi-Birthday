@@ -375,12 +375,23 @@
         form.addEventListener("submit", async function (event) {
             event.preventDefault();
 
-            if (input.value.trim() !== correctPassword) {
-                error.textContent = "Incorrect password! Try again ♡";
-                input.value = "";
-                input.focus();
-                return;
-            }
+            
+const username = document.getElementById("siteUsername");
+
+if (username.value.trim().toLowerCase() !== correctUsername.toLowerCase()) {
+    error.textContent = "Incorrect username! Try again ♡";
+    username.value = "";
+    username.focus();
+    return;
+}
+
+if (input.value.trim() !== correctPassword) {
+    error.textContent = "Incorrect password! Try again ♡";
+    input.value = "";
+    input.focus();
+    return;
+}
+
 
             error.textContent = "";
 
