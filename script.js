@@ -291,6 +291,7 @@ setInterval(makePetal, 850);
 // BACKGROUND MUSIC - SMART AUTO PAUSE / RESUME
 // ==========================================
 
+
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
 
@@ -319,7 +320,6 @@ function updateMusicButton(isOn) {
     musicButton.setAttribute("aria-pressed", String(isOn));
 }
 
-// Start background music
 async function startBackgroundMusic() {
     if (!music || activeMedia.size > 0) return;
 
@@ -327,15 +327,13 @@ async function startBackgroundMusic() {
         await music.play();
         updateMusicButton(true);
     } catch (error) {
-        console.log("Background music error:", error);
+        console.log("Music error:", error);
         updateMusicButton(false);
     }
 }
 
-// Manual music button
 if (musicButton && music) {
     musicButton.addEventListener("click", async function () {
-
         if (activeMedia.size > 0) return;
 
         if (music.paused) {
@@ -347,9 +345,7 @@ if (musicButton && music) {
     });
 }
 
-// When another audio/video starts
 function mediaStarted(media) {
-
     if (!music) return;
 
     if (activeMedia.size === 0) {
@@ -357,29 +353,22 @@ function mediaStarted(media) {
     }
 
     activeMedia.add(media);
-
     music.pause();
     updateMusicButton(false);
 }
 
-// When another audio/video stops
 async function mediaStopped(media) {
-
     if (!music) return;
 
     activeMedia.delete(media);
 
     if (activeMedia.size === 0 && resumeMusicAfterMedia) {
-
         resumeMusicAfterMedia = false;
-
         await startBackgroundMusic();
     }
 }
 
-// Apply to voice, song and both videos
 mediaElements.forEach(function (media) {
-
     media.addEventListener("play", function () {
         mediaStarted(media);
     });
@@ -393,9 +382,7 @@ mediaElements.forEach(function (media) {
     media.addEventListener("ended", function () {
         mediaStopped(media);
     });
-
 });
-
 
 
 
