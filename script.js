@@ -461,15 +461,17 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
         });
 
         
+
 try {
-    // Start video and background music together
-    const playTasks = [youMeAnimation.play()];
+    // Play Last Surprise video
+    const videoPromise = youMeAnimation.play();
 
-    if (music && music.paused) {
-        playTasks.push(music.play());
-    }
+    // Start background music if it is paused
+    const musicPromise = music && music.paused
+        ? music.play()
+        : Promise.resolve();
 
-    await Promise.all(playTasks);
+    await Promise.all([videoPromise, musicPromise]);
 
     if (musicButton) {
         musicButton.textContent = "♫ Music: on";
@@ -477,19 +479,14 @@ try {
     }
 
 } catch (error) {
-    console.log("Video or music playback error:", error);
+    console.error("Playback error:", error);
+
     lastSurpriseButton.style.display = "inline-block";
     lastSurpriseButton.textContent = "Try Again ♡";
 }
 
 
-} catch (error) {
-    console.log("Video or music playback error:", error);
-            console.log("Video error:", error);
-            lastSurpriseButton.style.display = "inline-block";
-            lastSurpriseButton.textContent = "Try Again ♡";
-        }
-    });
+
 
     youMeAnimation.addEventListener("ended", function () {
 
