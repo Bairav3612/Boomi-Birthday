@@ -331,6 +331,7 @@ async function startBackgroundMusic() {
         updateMusicButton(false);
     }
 }
+window.startBackgroundMusic = startBackgroundMusic;
 
 if (musicButton && music) {
     musicButton.addEventListener("click", async function () {
