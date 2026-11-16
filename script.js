@@ -286,9 +286,10 @@ setInterval(makePetal, 850);
 
 
 
-// ============================================
-// BACKGROUND MUSIC - SMART AUTO PAUSE SYSTEM
-// ============================================
+
+// ==========================================
+// BACKGROUND MUSIC - SMART AUTO PAUSE / RESUME
+// ==========================================
 
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
@@ -303,7 +304,11 @@ const mediaElements = [
 let activeMedia = new Set();
 let resumeMusicAfterMedia = false;
 
-// Music button update
+if (music) {
+    music.loop = true;
+    music.volume = 0.30;
+}
+
 function updateMusicButton(isOn) {
     if (!musicButton) return;
 
@@ -331,9 +336,7 @@ async function startBackgroundMusic() {
 if (musicButton && music) {
     musicButton.addEventListener("click", async function () {
 
-        if (activeMedia.size > 0) {
-            return;
-        }
+        if (activeMedia.size > 0) return;
 
         if (music.paused) {
             await startBackgroundMusic();
@@ -344,8 +347,10 @@ if (musicButton && music) {
     });
 }
 
-// Pause background music when another media starts
+// When another audio/video starts
 function mediaStarted(media) {
+
+    if (!music) return;
 
     if (activeMedia.size === 0) {
         resumeMusicAfterMedia = !music.paused;
@@ -357,13 +362,17 @@ function mediaStarted(media) {
     updateMusicButton(false);
 }
 
-// Resume background music after media stops
+// When another audio/video stops
 async function mediaStopped(media) {
+
+    if (!music) return;
 
     activeMedia.delete(media);
 
     if (activeMedia.size === 0 && resumeMusicAfterMedia) {
+
         resumeMusicAfterMedia = false;
+
         await startBackgroundMusic();
     }
 }
@@ -386,9 +395,6 @@ mediaElements.forEach(function (media) {
     });
 
 });
-
-console.log("Background music control system loaded successfully.");
-
 
 
 
