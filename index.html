@@ -372,12 +372,8 @@
         });
     }
 
-    // Unlock website and start music
-    if (form) {
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-           
+   
+// Username and password validation
 const usernameInput = document.getElementById("siteUsername");
 
 if (form) {
@@ -387,6 +383,7 @@ if (form) {
         const enteredUsername = usernameInput.value.trim().toLowerCase();
         const enteredPassword = input.value;
 
+        // Check BOTH username and password
         if (
             enteredUsername !== correctUsername.toLowerCase() ||
             enteredPassword !== correctPassword
@@ -398,12 +395,9 @@ if (form) {
             return;
         }
 
+        // Only correct credentials can unlock
         error.textContent = "";
-
-        // Unlock website
         document.body.classList.add("site-unlocked");
-
-        // Hide login screen
         gate.style.display = "none";
 
         window.scrollTo(0, 0);
@@ -414,6 +408,7 @@ if (form) {
         }
     });
 }
+
 
 // Mark website as unlocked
 document.body.classList.add("site-unlocked");
