@@ -335,11 +335,14 @@ setInterval(makePetal, 850);
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
 
+
 const mediaElements = [
     document.getElementById("voiceAudio"),
     document.getElementById("songAudio"),
     document.getElementById("giftVideo"),
+    document.getElementById("giftVideo2"),
 ].filter(Boolean);
+
 
 let activeMedia = new Set();
 let resumeMusicAfterMedia = false;
