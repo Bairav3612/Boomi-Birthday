@@ -39,25 +39,39 @@
       Enter the password to unlock it.
     </p>
 
-    <form id="passwordForm">
-      <div class="password-input">
-        <input
-          type="password"
-          id="sitePassword"
-          placeholder="Enter your password"
-          required
-          autocomplete="off"
-        >
-        <button type="button" id="showPassword">Show</button>
-      </div>
+    
+<form id="passwordForm">
 
-      <p id="passwordError" role="alert"></p>
+  <!-- USERNAME -->
+  <div class="password-input">
+    <input
+      type="text"
+      id="siteUsername"
+      placeholder="Enter your username"
+      required
+      autocomplete="username"
+    >
+  </div>
 
+  <!-- PASSWORD -->
+  <div class="password-input">
+    <input
+      type="password"
+      id="sitePassword"
+      placeholder="Enter your password"
+      required
+      autocomplete="current-password"
+    >
+    <button type="button" id="showPassword">Show</button>
+  </div>
 
-      <button type="submit" class="unlock-button">
-        Unlock My Surprise ♡
-      </button>
-    </form>
+  <p id="passwordError" role="alert"></p>
+
+  <button type="submit" class="unlock-button">
+    Unlock My Surprise ♡
+  </button>
+
+</form>
 
     <p class="gate-footer">Made with love · Bairavan ♡</p>
   </div>
@@ -298,6 +312,7 @@
 
 <script>
 (function () {
+    const correctUsername = "I LOVE YOU BOOMI";
     const correctPassword = "YouAreMine";
     const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
 
@@ -362,14 +377,43 @@
         form.addEventListener("submit", async function (event) {
             event.preventDefault();
 
-            if (input.value.trim() !== correctPassword) {
-                error.textContent = "Incorrect password! Try again ♡";
-                input.value = "";
-                input.focus();
-                return;
-            }
+           
+const usernameInput = document.getElementById("siteUsername");
 
-            error.textContent = "";
+if (form) {
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const enteredUsername = usernameInput.value.trim().toLowerCase();
+        const enteredPassword = input.value;
+
+        if (
+            enteredUsername !== correctUsername.toLowerCase() ||
+            enteredPassword !== correctPassword
+        ) {
+            error.textContent = "Incorrect username or password! Try again ♡";
+            usernameInput.value = "";
+            input.value = "";
+            usernameInput.focus();
+            return;
+        }
+
+        error.textContent = "";
+
+        // Unlock website
+        document.body.classList.add("site-unlocked");
+
+        // Hide login screen
+        gate.style.display = "none";
+
+        window.scrollTo(0, 0);
+
+        // Start background music
+        if (window.startBackgroundMusic) {
+            await window.startBackgroundMusic();
+        }
+    });
+}
 
 // Mark website as unlocked
 document.body.classList.add("site-unlocked");
