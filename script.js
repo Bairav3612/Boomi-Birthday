@@ -551,17 +551,15 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
-  const videos = document.querySelectorAll("video");
 
-  videos.forEach((video) => {
-    video.addEventListener("play", () => {
-      videos.forEach((otherVideo) => {
-        if (otherVideo !== video) {
-          otherVideo.pause();
-        }
-      });
-    });
+document.addEventListener("play", function (event) {
+  const currentVideo = event.target;
+
+  if (currentVideo.tagName !== "VIDEO") return;
+
+  document.querySelectorAll("video").forEach((video) => {
+    if (video !== currentVideo) {
+      video.pause();
+    }
   });
-});
-
+}, true);
