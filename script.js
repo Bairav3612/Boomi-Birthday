@@ -156,86 +156,54 @@ reasonButton.addEventListener("click", () => {
 
 
 
+// MAGIC GIFT BOX - FIXED CLOSE BUTTON
 
-// MAGIC GIFT BOX - AUTOMATIC TWO VIDEO PLAYBACK
+document.addEventListener("DOMContentLoaded", () => {
+  const giftButton = document.getElementById("giftButton");
+  const giftMessage = document.getElementById("giftMessage");
+  const giftVideo = document.getElementById("giftVideo");
+  const closeGiftButton = document.getElementById("closeGiftButton");
 
-const giftButton = document.getElementById("giftButton");
-const giftMessage = document.getElementById("giftMessage");
-const firstVideo = document.getElementById("giftVideo");
-const secondVideo = document.getElementById("giftVideo2");
-const closeGiftButton = document.getElementById("closeGiftButton");
+  if (!giftButton || !giftMessage || !giftVideo || !closeGiftButton) {
+    console.error("Gift elements are missing. Check your HTML IDs.");
+    return;
+  }
 
-if (giftButton && giftMessage && firstVideo && secondVideo && closeGiftButton) {
+  // OPEN GIFT
+  giftButton.addEventListener("click", () => {
+    giftMessage.hidden = false;
+    giftButton.classList.add("open");
+    giftButton.setAttribute("aria-expanded", "true");
 
-    // OPEN MAGIC BOX AND PLAY FIRST VIDEO
-    giftButton.addEventListener("click", async () => {
-
-        giftMessage.hidden = false;
-
-        giftButton.classList.add("open");
-        giftButton.setAttribute("aria-expanded", "true");
-
-        // Stop and reset both videos
-        firstVideo.pause();
-        secondVideo.pause();
-
-        firstVideo.currentTime = 0;
-        secondVideo.currentTime = 0;
-
-        // Scroll to first video
-        firstVideo.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-        // Automatically play first video
-        try {
-            await firstVideo.play();
-        } catch (error) {
-            console.log("First video playback error:", error);
-        }
+    giftMessage.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
     });
+  });
 
+  // CLOSE VIDEO AND GIFT
+  closeGiftButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-    // FIRST VIDEO ENDS -> SCROLL AND PLAY SECOND VIDEO
-    firstVideo.addEventListener("ended", async () => {
+    giftVideo.pause();
 
-        secondVideo.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
+    try {
+      giftVideo.currentTime = 0;
+    } catch (error) {
+      console.log("Video reset:", error);
+    }
 
-        try {
-            await secondVideo.play();
-        } catch (error) {
-            console.log("Second video autoplay blocked:", error);
-        }
+    giftMessage.hidden = true;
+    giftButton.classList.remove("open");
+    giftButton.setAttribute("aria-expanded", "false");
+
+    giftButton.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
     });
-
-
-    // CLOSE GIFT BOX
-    closeGiftButton.addEventListener("click", (event) => {
-
-        event.preventDefault();
-
-        firstVideo.pause();
-        secondVideo.pause();
-
-        firstVideo.currentTime = 0;
-        secondVideo.currentTime = 0;
-
-        giftMessage.hidden = true;
-
-        giftButton.classList.remove("open");
-        giftButton.setAttribute("aria-expanded", "false");
-
-        giftButton.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-    });
-
-}
+  });
+});
 
 
 // MAIN PAGE COUNTDOWN - 31 DECEMBER 2026
@@ -324,18 +292,13 @@ setInterval(makePetal, 850);
 // ==========================================
 
 
-
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
-
-const giftVideo = document.getElementById("giftVideo");
-const giftVideo2 = document.getElementById("giftVideo2");
 
 const mediaElements = [
     document.getElementById("voiceAudio"),
     document.getElementById("songAudio"),
-    giftVideo,
-    giftVideo2
+    document.getElementById("giftVideo"),
 ].filter(Boolean);
 
 let activeMedia = new Set();
@@ -367,7 +330,6 @@ async function startBackgroundMusic() {
         updateMusicButton(false);
     }
 }
-
 window.startBackgroundMusic = startBackgroundMusic;
 
 if (musicButton && music) {
@@ -390,19 +352,7 @@ function mediaStarted(media) {
         resumeMusicAfterMedia = !music.paused;
     }
 
-    // Add current video/audio first
     activeMedia.add(media);
-
-    // One gift video plays at a time
-    if (media === giftVideo && giftVideo2) {
-        giftVideo2.pause();
-    }
-
-    if (media === giftVideo2 && giftVideo) {
-        giftVideo.pause();
-    }
-
-    // Stop background music
     music.pause();
     updateMusicButton(false);
 }
@@ -412,7 +362,6 @@ async function mediaStopped(media) {
 
     activeMedia.delete(media);
 
-    // Resume music only when all media has stopped
     if (activeMedia.size === 0 && resumeMusicAfterMedia) {
         resumeMusicAfterMedia = false;
         await startBackgroundMusic();
@@ -425,7 +374,9 @@ mediaElements.forEach(function (media) {
     });
 
     media.addEventListener("pause", function () {
-        mediaStopped(media);
+        if (!media.ended) {
+            mediaStopped(media);
+        }
     });
 
     media.addEventListener("ended", function () {
@@ -546,65 +497,3 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
         console.log("Video file could not be loaded.");
     });
 }
-
-
-
-
-
-
-// Only one surprise video can play at a time
-document.addEventListener("DOMContentLoaded", () => {
-    const videos = [
-        document.getElementById("giftVideo"),
-        document.getElementById("giftVideo2")
-    ].filter(Boolean);
-
-    videos.forEach((currentVideo) => {
-        currentVideo.addEventListener("play", () => {
-            videos.forEach((otherVideo) => {
-                if (otherVideo !== currentVideo) {
-                    otherVideo.pause();
-                }
-            });
-        });
-    });
-});
-
-
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const firstVideo = document.getElementById("giftVideo");
-    const secondVideo = document.getElementById("giftVideo2");
-
-    if (!firstVideo || !secondVideo) return;
-
-    firstVideo.addEventListener("ended", async () => {
-
-        // Scroll automatically to the second video
-        secondVideo.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-        // Pause background music
-        const music = document.getElementById("bgMusic");
-        if (music) {
-            music.pause();
-        }
-
-        // Start second video
-        try {
-            await secondVideo.play();
-        } catch (error) {
-            console.log("Second video playback needs user interaction:", error);
-        }
-
-    });
-
-});
