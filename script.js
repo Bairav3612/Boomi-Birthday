@@ -156,58 +156,86 @@ reasonButton.addEventListener("click", () => {
 
 
 
-// MAGIC GIFT BOX - FIXED CLOSE BUTTON
 
-document.addEventListener("DOMContentLoaded", () => {
-  const giftButton = document.getElementById("giftButton");
-  const giftMessage = document.getElementById("giftMessage");
-  const giftVideo = document.getElementById("giftVideo");
-  const giftVideo2 = document.getElementById("giftVideo2");
-  const closeGiftButton = document.getElementById("closeGiftButton");
+// MAGIC GIFT BOX - AUTOMATIC TWO VIDEO PLAYBACK
 
-  if (!giftButton || !giftMessage || !giftVideo || !closeGiftButton) {
-    console.error("Gift elements are missing. Check your HTML IDs.");
-    return;
-  }
+const giftButton = document.getElementById("giftButton");
+const giftMessage = document.getElementById("giftMessage");
+const firstVideo = document.getElementById("giftVideo");
+const secondVideo = document.getElementById("giftVideo2");
+const closeGiftButton = document.getElementById("closeGiftButton");
 
-  // OPEN GIFT
-  giftButton.addEventListener("click", () => {
-    giftMessage.hidden = false;
-    giftButton.classList.add("open");
-    giftButton.setAttribute("aria-expanded", "true");
+if (giftButton && giftMessage && firstVideo && secondVideo && closeGiftButton) {
 
-    giftMessage.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
+    // OPEN MAGIC BOX AND PLAY FIRST VIDEO
+    giftButton.addEventListener("click", async () => {
+
+        giftMessage.hidden = false;
+
+        giftButton.classList.add("open");
+        giftButton.setAttribute("aria-expanded", "true");
+
+        // Stop and reset both videos
+        firstVideo.pause();
+        secondVideo.pause();
+
+        firstVideo.currentTime = 0;
+        secondVideo.currentTime = 0;
+
+        // Scroll to first video
+        firstVideo.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        // Automatically play first video
+        try {
+            await firstVideo.play();
+        } catch (error) {
+            console.log("First video playback error:", error);
+        }
     });
-  });
 
-  // CLOSE VIDEO AND GIFT
-  closeGiftButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (giftVideo2) {
-    giftVideo2.pause();
-    giftVideo2.currentTime = 0;
+
+    // FIRST VIDEO ENDS -> SCROLL AND PLAY SECOND VIDEO
+    firstVideo.addEventListener("ended", async () => {
+
+        secondVideo.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        try {
+            await secondVideo.play();
+        } catch (error) {
+            console.log("Second video autoplay blocked:", error);
+        }
+    });
+
+
+    // CLOSE GIFT BOX
+    closeGiftButton.addEventListener("click", (event) => {
+
+        event.preventDefault();
+
+        firstVideo.pause();
+        secondVideo.pause();
+
+        firstVideo.currentTime = 0;
+        secondVideo.currentTime = 0;
+
+        giftMessage.hidden = true;
+
+        giftButton.classList.remove("open");
+        giftButton.setAttribute("aria-expanded", "false");
+
+        giftButton.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
+
 }
-
-    // Stop and reset both videos
-[giftVideo, giftVideo2].forEach((video) => {
-    if (video) {
-        video.pause();
-        video.currentTime = 0;
-    }
-});
-    giftMessage.hidden = true;
-    giftButton.classList.remove("open");
-    giftButton.setAttribute("aria-expanded", "false");
-
-    giftButton.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-  });
-});
 
 
 // MAIN PAGE COUNTDOWN - 31 DECEMBER 2026
