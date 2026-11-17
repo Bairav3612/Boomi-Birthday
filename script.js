@@ -542,3 +542,26 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
         console.log("Video file could not be loaded.");
     });
 }
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const videos = document.querySelectorAll("video");
+
+  videos.forEach((video) => {
+    video.addEventListener("play", () => {
+      videos.forEach((otherVideo) => {
+        if (otherVideo !== video) {
+          otherVideo.pause();
+        }
+      });
+    });
+  });
+});
+
