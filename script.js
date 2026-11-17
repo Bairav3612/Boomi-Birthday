@@ -157,8 +157,7 @@ reasonButton.addEventListener("click", () => {
 
 
 
-
-// MAGIC GIFT BOX - TWO VIDEOS THEN AUTO CLOSE
+// MAGIC GIFT BOX - AUTOMATIC TWO VIDEO PLAYBACK
 
 const giftButton = document.getElementById("giftButton");
 const giftMessage = document.getElementById("giftMessage");
@@ -168,31 +167,39 @@ const closeGiftButton = document.getElementById("closeGiftButton");
 
 if (giftButton && giftMessage && firstVideo && secondVideo && closeGiftButton) {
 
-    // OPEN BOX AND PLAY FIRST VIDEO
+    // OPEN MAGIC BOX AND PLAY FIRST VIDEO
     giftButton.addEventListener("click", async () => {
+
         giftMessage.hidden = false;
+
         giftButton.classList.add("open");
         giftButton.setAttribute("aria-expanded", "true");
 
+        // Stop and reset both videos
         firstVideo.pause();
         secondVideo.pause();
+
         firstVideo.currentTime = 0;
         secondVideo.currentTime = 0;
 
+        // Scroll to first video
         firstVideo.scrollIntoView({
             behavior: "smooth",
             block: "center"
         });
 
+        // Automatically play first video
         try {
             await firstVideo.play();
         } catch (error) {
-            console.error("First video error:", error);
+            console.log("First video playback error:", error);
         }
     });
 
-    // FIRST VIDEO ENDS -> PLAY SECOND VIDEO
+
+    // FIRST VIDEO ENDS -> SCROLL AND PLAY SECOND VIDEO
     firstVideo.addEventListener("ended", async () => {
+
         secondVideo.scrollIntoView({
             behavior: "smooth",
             block: "center"
@@ -201,25 +208,24 @@ if (giftButton && giftMessage && firstVideo && secondVideo && closeGiftButton) {
         try {
             await secondVideo.play();
         } catch (error) {
-            console.error("Second video error:", error);
+            console.log("Second video autoplay blocked:", error);
         }
     });
 
-    // SECOND VIDEO ENDS -> AUTO CLOSE
-    secondVideo.addEventListener("ended", () => {
-        closeGiftButton.click();
-    });
 
     // CLOSE GIFT BOX
     closeGiftButton.addEventListener("click", (event) => {
+
         event.preventDefault();
 
         firstVideo.pause();
         secondVideo.pause();
+
         firstVideo.currentTime = 0;
         secondVideo.currentTime = 0;
 
         giftMessage.hidden = true;
+
         giftButton.classList.remove("open");
         giftButton.setAttribute("aria-expanded", "false");
 
@@ -228,6 +234,7 @@ if (giftButton && giftMessage && firstVideo && secondVideo && closeGiftButton) {
             block: "center"
         });
     });
+
 }
 
 
