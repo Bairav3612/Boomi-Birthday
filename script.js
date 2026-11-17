@@ -552,14 +552,21 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
 
 
 
+
+/* ONLY ONE VIDEO CAN PLAY AT A TIME */
+
 document.addEventListener("play", function (event) {
-  const currentVideo = event.target;
 
-  if (currentVideo.tagName !== "VIDEO") return;
+    const currentVideo = event.target;
 
-  document.querySelectorAll("video").forEach((video) => {
-    if (video !== currentVideo) {
-      video.pause();
-    }
-  });
+    if (currentVideo.tagName !== "VIDEO") return;
+
+    document.querySelectorAll("video").forEach(function (video) {
+
+        if (video !== currentVideo) {
+            video.pause();
+        }
+
+    });
+
 }, true);
