@@ -162,6 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const giftButton = document.getElementById("giftButton");
   const giftMessage = document.getElementById("giftMessage");
   const giftVideo = document.getElementById("giftVideo");
+  const giftVideo2 = document.getElementById("giftVideo2");
   const closeGiftButton = document.getElementById("closeGiftButton");
 
   if (!giftButton || !giftMessage || !giftVideo || !closeGiftButton) {
@@ -185,6 +186,10 @@ document.addEventListener("DOMContentLoaded", () => {
   closeGiftButton.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
+    if (giftVideo2) {
+    giftVideo2.pause();
+    giftVideo2.currentTime = 0;
+}
 
     giftVideo.pause();
 
