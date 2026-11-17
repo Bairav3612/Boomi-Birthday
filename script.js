@@ -502,3 +502,26 @@ if (lastSurpriseButton && lastSurpriseContent && youMeAnimation) {
         console.log("Video file could not be loaded.");
     });
 }
+
+
+
+
+
+
+// Only one surprise video can play at a time
+document.addEventListener("DOMContentLoaded", () => {
+    const videos = [
+        document.getElementById("giftVideo"),
+        document.getElementById("giftVideo2")
+    ].filter(Boolean);
+
+    videos.forEach((currentVideo) => {
+        currentVideo.addEventListener("play", () => {
+            videos.forEach((otherVideo) => {
+                if (otherVideo !== currentVideo) {
+                    otherVideo.pause();
+                }
+            });
+        });
+    });
+});
