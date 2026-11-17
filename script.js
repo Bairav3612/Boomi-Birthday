@@ -217,12 +217,17 @@ firstVideo.play()
             block: "center"
         });
 
-        try {
-            await secondVideo.play();
-        } catch (error) {
-            console.log("Second video autoplay blocked:", error);
-        }
-    });
+       
+// SECOND VIDEO ENDS -> AUTOMATICALLY CLOSE SURPRISE
+secondVideo.addEventListener("ended", () => {
+
+    console.log("Both surprise videos completed!");
+
+    // Automatically click the existing close button
+    closeGiftButton.click();
+
+});
+
 
 
     // CLOSE GIFT BOX
