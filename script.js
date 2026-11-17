@@ -297,13 +297,18 @@ setInterval(makePetal, 850);
 // ==========================================
 
 
+
 const musicButton = document.getElementById("musicToggle");
 const music = document.getElementById("bgMusic");
+
+const giftVideo = document.getElementById("giftVideo");
+const giftVideo2 = document.getElementById("giftVideo2");
 
 const mediaElements = [
     document.getElementById("voiceAudio"),
     document.getElementById("songAudio"),
-    document.getElementById("giftVideo"),
+    giftVideo,
+    giftVideo2
 ].filter(Boolean);
 
 let activeMedia = new Set();
@@ -335,6 +340,7 @@ async function startBackgroundMusic() {
         updateMusicButton(false);
     }
 }
+
 window.startBackgroundMusic = startBackgroundMusic;
 
 if (musicButton && music) {
@@ -357,7 +363,19 @@ function mediaStarted(media) {
         resumeMusicAfterMedia = !music.paused;
     }
 
+    // Add current video/audio first
     activeMedia.add(media);
+
+    // One gift video plays at a time
+    if (media === giftVideo && giftVideo2) {
+        giftVideo2.pause();
+    }
+
+    if (media === giftVideo2 && giftVideo) {
+        giftVideo.pause();
+    }
+
+    // Stop background music
     music.pause();
     updateMusicButton(false);
 }
@@ -367,6 +385,7 @@ async function mediaStopped(media) {
 
     activeMedia.delete(media);
 
+    // Resume music only when all media has stopped
     if (activeMedia.size === 0 && resumeMusicAfterMedia) {
         resumeMusicAfterMedia = false;
         await startBackgroundMusic();
@@ -379,9 +398,7 @@ mediaElements.forEach(function (media) {
     });
 
     media.addEventListener("pause", function () {
-        if (!media.ended) {
-            mediaStopped(media);
-        }
+        mediaStopped(media);
     });
 
     media.addEventListener("ended", function () {
