@@ -156,45 +156,83 @@ reasonButton.addEventListener("click", () => {
 
 
 
-// MAGIC GIFT BOX - FIXED CLOSE BUTTON
+
+// MAGIC GIFT BOX - TWO VIDEOS AUTO PLAY AND AUTO CLOSE
 
 document.addEventListener("DOMContentLoaded", () => {
+
   const giftButton = document.getElementById("giftButton");
   const giftMessage = document.getElementById("giftMessage");
-  const giftVideo = document.getElementById("giftVideo");
+  const firstVideo = document.getElementById("giftVideo");
+  const secondVideo = document.getElementById("giftVideo2");
   const closeGiftButton = document.getElementById("closeGiftButton");
 
-  if (!giftButton || !giftMessage || !giftVideo || !closeGiftButton) {
-    console.error("Gift elements are missing. Check your HTML IDs.");
+  if (!giftButton || !giftMessage || !firstVideo || !secondVideo || !closeGiftButton) {
+    console.error("Check your gift HTML IDs!");
     return;
   }
 
-  // OPEN GIFT
-  giftButton.addEventListener("click", () => {
+  // OPEN GIFT AND PLAY FIRST VIDEO
+  giftButton.addEventListener("click", async () => {
+
     giftMessage.hidden = false;
     giftButton.classList.add("open");
     giftButton.setAttribute("aria-expanded", "true");
+
+    firstVideo.pause();
+    secondVideo.pause();
+
+    firstVideo.currentTime = 0;
+    secondVideo.currentTime = 0;
 
     giftMessage.scrollIntoView({
       behavior: "smooth",
       block: "center"
     });
+
+    try {
+      await firstVideo.play();
+    } catch (error) {
+      console.log("First video error:", error);
+    }
   });
 
-  // CLOSE VIDEO AND GIFT
+  // FIRST VIDEO ENDS -> PLAY SECOND VIDEO
+  firstVideo.addEventListener("ended", async () => {
+
+    secondVideo.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+    try {
+      await secondVideo.play();
+    } catch (error) {
+      console.log("Second video error:", error);
+    }
+  });
+
+  // SECOND VIDEO ENDS -> AUTOMATICALLY CLOSE SURPRISE
+  secondVideo.addEventListener("ended", () => {
+
+    closeGiftButton.click();
+
+  });
+
+  // CLOSE GIFT
   closeGiftButton.addEventListener("click", (event) => {
+
     event.preventDefault();
     event.stopPropagation();
 
-    giftVideo.pause();
+    firstVideo.pause();
+    secondVideo.pause();
 
-    try {
-      giftVideo.currentTime = 0;
-    } catch (error) {
-      console.log("Video reset:", error);
-    }
+    firstVideo.currentTime = 0;
+    secondVideo.currentTime = 0;
 
     giftMessage.hidden = true;
+
     giftButton.classList.remove("open");
     giftButton.setAttribute("aria-expanded", "false");
 
@@ -202,7 +240,9 @@ document.addEventListener("DOMContentLoaded", () => {
       behavior: "smooth",
       block: "center"
     });
+
   });
+
 });
 
 
