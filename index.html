@@ -310,117 +310,67 @@
 
 
 
+
 <script>
 (function () {
     const correctUsername = "I LOVE YOU BOOMI";
     const correctPassword = "YouAreMine";
-    const target = new Date(2026, 11, 31, 0, 0, 0).getTime();
 
     const gate = document.getElementById("passwordGate");
     const form = document.getElementById("passwordForm");
-    const input = document.getElementById("sitePassword");
+    const usernameInput = document.getElementById("siteUsername");
+    const passwordInput = document.getElementById("sitePassword");
     const error = document.getElementById("passwordError");
-    const show = document.getElementById("showPassword");
-    const music = document.getElementById("bgMusic");
-    const musicButton = document.getElementById("musicToggle");
+    const showButton = document.getElementById("showPassword");
 
-    // Update both countdowns
-    function updateTimers() {
-        const diff = Math.max(0, target - Date.now());
-
-        const values = [
-            Math.floor(diff / 86400000),
-            Math.floor((diff % 86400000) / 3600000),
-            Math.floor((diff % 3600000) / 60000),
-            Math.floor((diff % 60000) / 1000)
-        ];
-
-        const gateIds = [
-            "gateDays", "gateHours", "gateMinutes", "gateSeconds"
-        ];
-
-        const mainIds = [
-            "days", "hours", "minutes", "seconds"
-        ];
-
-        gateIds.forEach((id, i) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = String(values[i]).padStart(2, "0");
-        });
-
-        mainIds.forEach((id, i) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = String(values[i]).padStart(2, "0");
-        });
-
-        if (diff === 0) {
-            const msg = document.getElementById("countdownMessage");
-            if (msg) msg.textContent =
-                "It's your birthday, Boomika! Happy Birthday! ❤️";
-        }
-    }
-
-    updateTimers();
-    setInterval(updateTimers, 1000);
-
-    // Password show / hide
-    if (show && input) {
-        show.addEventListener("click", function () {
-            input.type = input.type === "password" ? "text" : "password";
-            show.textContent =
-                input.type === "password" ? "Show" : "Hide";
+    // SHOW / HIDE PASSWORD
+    if (showButton && passwordInput) {
+        showButton.addEventListener("click", function () {
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                showButton.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                showButton.textContent = "Show";
+            }
         });
     }
 
-   
-// Username and password validation
-const usernameInput = document.getElementById("siteUsername");
+    // USERNAME AND PASSWORD VALIDATION
+    if (form) {
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
 
-if (form) {
-    form.addEventListener("submit", async function (event) {
-        event.preventDefault();
+            const enteredUsername =
+                usernameInput.value.trim().toLowerCase();
 
-        const enteredUsername = usernameInput.value.trim().toLowerCase();
-        const enteredPassword = input.value;
+            const enteredPassword = passwordInput.value;
 
-        // Check BOTH username and password
-        if (
-            enteredUsername !== correctUsername.toLowerCase() ||
-            enteredPassword !== correctPassword
-        ) {
-            error.textContent = "Incorrect username or password! Try again ♡";
-            usernameInput.value = "";
-            input.value = "";
-            usernameInput.focus();
-            return;
-        }
+            if (
+                enteredUsername !== correctUsername.toLowerCase() ||
+                enteredPassword !== correctPassword
+            ) {
+                error.textContent =
+                    "Incorrect username or password! Try again ♡";
 
-        // Only correct credentials can unlock
-        error.textContent = "";
-        document.body.classList.add("site-unlocked");
-        gate.style.display = "none";
+                passwordInput.value = "";
+                usernameInput.focus();
+                return;
+            }
 
-        window.scrollTo(0, 0);
+            error.textContent = "";
+            document.body.classList.add("site-unlocked");
+            gate.style.display = "none";
 
-        // Start background music
-        if (window.startBackgroundMusic) {
-            await window.startBackgroundMusic();
-        }
-    });
-}
+            window.scrollTo(0, 0);
 
-
-  // Mark website as unlocked
-document.body.classList.add("site-unlocked");
-
-// Hide password screen
-gate.style.display = "none";
-
-window.scrollTo(0, 0);
-
-if (window.startBackgroundMusic) {
-    await window.startBackgroundMusic();
-}
+            if (window.startBackgroundMusic) {
+                await window.startBackgroundMusic();
+            }
+        });
+    }
+})();
+</script>
 
 </section>
 </body>
