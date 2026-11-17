@@ -189,11 +189,23 @@ if (giftButton && giftMessage && firstVideo && secondVideo && closeGiftButton) {
         });
 
         // Automatically play first video
-        try {
-            await firstVideo.play();
-        } catch (error) {
-            console.log("First video playback error:", error);
-        }
+        firstVideo.addEventListener("error", () => {
+    console.error("VIDEO FILE ERROR:", firstVideo.error);
+}, { once: true });
+
+firstVideo.addEventListener("playing", () => {
+    console.log("SUCCESS: First video is playing!");
+}, { once: true });
+
+console.log("First video source:", firstVideo.currentSrc);
+
+firstVideo.play()
+    .then(() => {
+        console.log("First video started successfully!");
+    })
+    .catch((error) => {
+        console.error("FIRST VIDEO PLAY ERROR:", error.name, error.message);
+    });
     });
 
 
