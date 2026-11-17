@@ -541,3 +541,42 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const firstVideo = document.getElementById("giftVideo");
+    const secondVideo = document.getElementById("giftVideo2");
+
+    if (!firstVideo || !secondVideo) return;
+
+    firstVideo.addEventListener("ended", async () => {
+
+        // Scroll automatically to the second video
+        secondVideo.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        // Pause background music
+        const music = document.getElementById("bgMusic");
+        if (music) {
+            music.pause();
+        }
+
+        // Start second video
+        try {
+            await secondVideo.play();
+        } catch (error) {
+            console.log("Second video playback needs user interaction:", error);
+        }
+
+    });
+
+});
