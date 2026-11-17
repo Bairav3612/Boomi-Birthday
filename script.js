@@ -209,25 +209,31 @@ firstVideo.play()
     });
 
 
-    // FIRST VIDEO ENDS -> SCROLL AND PLAY SECOND VIDEO
-    firstVideo.addEventListener("ended", async () => {
+   // FIRST VIDEO ENDS -> SCROLL AND PLAY SECOND VIDEO
+firstVideo.addEventListener("ended", async () => {
 
-        secondVideo.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
+    secondVideo.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
 
-       
+    try {
+        await secondVideo.play();
+    } catch (error) {
+        console.log("Second video playback error:", error);
+    }
+
+});
+
+
 // SECOND VIDEO ENDS -> AUTOMATICALLY CLOSE SURPRISE
 secondVideo.addEventListener("ended", () => {
 
     console.log("Both surprise videos completed!");
 
-    // Automatically click the existing close button
     closeGiftButton.click();
 
 });
-
 
 
     // CLOSE GIFT BOX
