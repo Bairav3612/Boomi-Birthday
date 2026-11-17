@@ -191,14 +191,13 @@ document.addEventListener("DOMContentLoaded", () => {
     giftVideo2.currentTime = 0;
 }
 
-    giftVideo.pause();
-
-    try {
-      giftVideo.currentTime = 0;
-    } catch (error) {
-      console.log("Video reset:", error);
+    // Stop and reset both videos
+[giftVideo, giftVideo2].forEach((video) => {
+    if (video) {
+        video.pause();
+        video.currentTime = 0;
     }
-
+});
     giftMessage.hidden = true;
     giftButton.classList.remove("open");
     giftButton.setAttribute("aria-expanded", "false");
