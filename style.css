@@ -1248,3 +1248,27 @@ body.site-unlocked .love-note {
     font-size: 16px;
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Style BOTH birthday surprise videos */
+#giftVideo,
+#giftVideo2 {
+    display: block !important;
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    min-height: 200px;
+    margin: 25px auto;
+    border: 2px solid #a71936;
+    border-radius: 18px;
+    background: #000;
+}
